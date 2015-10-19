@@ -7,9 +7,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-public class ScoobyServer {
+public class Server {
 
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8322"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", "7657"));
 
     public void run() throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -19,7 +19,7 @@ public class ScoobyServer {
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ScoobyServerInitializer());
+                    .childHandler(new ServerInitializer());
 
             b.bind(PORT).sync().channel().closeFuture().sync();
         } finally {
