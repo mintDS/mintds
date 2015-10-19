@@ -1,13 +1,12 @@
 package com.arturmkrtchyan.scooby;
 
-/**
- * Hello world!
- *
- */
+import com.arturmkrtchyan.scooby.server.ScoobyServer;
+
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws InterruptedException {
         System.out.println( "Hello World!" );
+        ScoobyServer server = new ScoobyServer();
+        server.run();
     }
 }
