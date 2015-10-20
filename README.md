@@ -1,4 +1,4 @@
-What is Scooby?
+What is mintDS?
 --------------
 
-Scooby is a *probabilistic data structures* server.
+mintDS is a *probabilistic data structures* server.
