@@ -1,4 +1,4 @@
-package com.arturmkrtchyan.scooby.server;
+package com.arturmkrtchyan.mintds.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;

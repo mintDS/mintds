@@ -1,4 +1,4 @@
-package com.arturmkrtchyan.scooby.protocol;
+package com.arturmkrtchyan.mintds.protocol;
 
 public class Message {
 

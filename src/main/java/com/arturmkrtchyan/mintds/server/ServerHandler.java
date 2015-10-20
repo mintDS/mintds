@@ -1,6 +1,6 @@
-package com.arturmkrtchyan.scooby.server;
+package com.arturmkrtchyan.mintds.server;
 
-import com.arturmkrtchyan.scooby.core.KeyValueStoreHandler;
+import com.arturmkrtchyan.mintds.core.KeyValueStoreHandler;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

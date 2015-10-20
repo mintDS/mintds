@@ -1,4 +1,4 @@
-package com.arturmkrtchyan.scooby;
+package com.arturmkrtchyan.mintds;
 
 import org.junit.Assert;
 

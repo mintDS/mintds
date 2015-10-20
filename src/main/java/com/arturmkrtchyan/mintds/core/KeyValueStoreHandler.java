@@ -1,6 +1,6 @@
-package com.arturmkrtchyan.scooby.core;
+package com.arturmkrtchyan.mintds.core;
 
-import com.arturmkrtchyan.scooby.protocol.Message;
+import com.arturmkrtchyan.mintds.protocol.Message;
 
 public class KeyValueStoreHandler {
 

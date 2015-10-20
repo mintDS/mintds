@@ -1,6 +1,6 @@
-package com.arturmkrtchyan.scooby;
+package com.arturmkrtchyan.mintds;
 
-import com.arturmkrtchyan.scooby.server.Server;
+import com.arturmkrtchyan.mintds.server.Server;
 
 public class App 
 {
