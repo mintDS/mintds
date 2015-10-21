@@ -3,9 +3,9 @@ package com.arturmkrtchyan.mintds;
 import org.junit.Assert;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple Main.
  */
-public class AppTest {
+public class MainTest {
 
     /**
      * Rigourous Test :-)
