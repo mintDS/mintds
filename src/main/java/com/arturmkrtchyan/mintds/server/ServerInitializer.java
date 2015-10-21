@@ -19,6 +19,8 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
         pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
 
+        pipeline.addLast(new MessageDecoder());
+
         pipeline.addLast(new ServerHandler());
 
     }

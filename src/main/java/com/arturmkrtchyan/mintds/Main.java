@@ -7,6 +7,8 @@ public class Main
 {
     public static void main( String[] args ) throws InterruptedException {
 
+        System.out.println(2 << 24);
+
         //long hash = LongHashFunction.murmur_3().hashChars("Hello");
         //System.out.println(hash%16000000);
 

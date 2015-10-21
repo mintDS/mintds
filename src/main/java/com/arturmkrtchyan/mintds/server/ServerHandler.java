@@ -1,25 +1,21 @@
 package com.arturmkrtchyan.mintds.server;
 
-import com.arturmkrtchyan.mintds.core.KeyValueStoreHandler;
+import com.arturmkrtchyan.mintds.core.KeyValueStoreRouter;
+import com.arturmkrtchyan.mintds.protocol.Message;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 @Sharable
-public class ServerHandler extends SimpleChannelInboundHandler<String> {
+public class ServerHandler extends SimpleChannelInboundHandler<Message> {
 
-    KeyValueStoreHandler storeHandler = new KeyValueStoreHandler();
+    private final KeyValueStoreRouter storeRouter = KeyValueStoreRouter.getInstance();
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, String msg) {
-        ctx.write(msg);
+    public void channelRead0(ChannelHandlerContext ctx, Message msg) {
+        ctx.write("OK!" + System.lineSeparator());
         System.out.println(msg);
-        storeHandler.handle(null);
-        if("close".equals(msg.trim())) {
-            ctx.write("bye.");
-            ctx.flush();
-            ctx.close();
-        }
+        storeRouter.handle(msg);
     }
 
     @Override
