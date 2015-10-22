@@ -14,6 +14,6 @@ public class Main
 
         System.out.println( "Hello World!" );
         Server server = new Server();
-        server.run();
+        server.start();
     }
 }
