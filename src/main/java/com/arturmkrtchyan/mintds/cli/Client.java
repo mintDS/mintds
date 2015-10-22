@@ -6,9 +6,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import jline.TerminalFactory;
+import jline.console.ConsoleReader;
 
 public class Client {
 
@@ -18,6 +17,10 @@ public class Client {
     private static final ClientHandler clientHandler = new ClientHandler();
 
     public static void main(String[] args) throws Exception {
+
+        ConsoleReader console = new ConsoleReader(null, System.in, System.out, null);
+        console.setPrompt("\nmintDS> ");
+        console.setBellEnabled(false);
 
 
         EventLoopGroup group = new NioEventLoopGroup(1);
@@ -32,10 +35,8 @@ public class Client {
 
             // Read commands from the stdin.
             ChannelFuture lastWriteFuture = null;
-            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             for (;;) {
-                System.out.print("mintDS> ");
-                String line = in.readLine();
+                String line = console.readLine();
                 if (line == null) {
                     break;
                 }
@@ -43,7 +44,7 @@ public class Client {
                 // Sends the received line to the server.
                 lastWriteFuture = ch.writeAndFlush(line + "\r\n").sync();
 
-                // Waits for the complete HTTP response
+                // Waits for the response
                 System.out.println(clientHandler.queue().take());
 
                 // If user typed the 'bye' command, wait until the server closes
@@ -60,6 +61,7 @@ public class Client {
             }
         } finally {
             group.shutdownGracefully();
+            TerminalFactory.get().restore();
         }
 
 
