@@ -1,4 +1,4 @@
-package com.arturmkrtchyan.mintds.server;
+package com.arturmkrtchyan.mintds.server.netty;
 
 import com.arturmkrtchyan.mintds.core.KeyValueStoreRouter;
 import com.arturmkrtchyan.mintds.protocol.Message;
@@ -7,7 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 @Sharable
-public class ServerHandler extends SimpleChannelInboundHandler<Message> {
+public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
 
     private final KeyValueStoreRouter storeRouter = KeyValueStoreRouter.getInstance();
 

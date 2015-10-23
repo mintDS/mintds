@@ -1,4 +1,4 @@
-package com.arturmkrtchyan.mintds.server;
+package com.arturmkrtchyan.mintds.server.netty;
 
 import com.arturmkrtchyan.mintds.protocol.Command;
 import com.arturmkrtchyan.mintds.protocol.DataStructure;

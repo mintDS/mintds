@@ -9,12 +9,12 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 
-public class Client {
+public class MintDsClient {
 
     private static final String HOST = System.getProperty("host", "127.0.0.1");
     private static final int PORT = Integer.parseInt(System.getProperty("port", "7657"));
 
-    private static final ClientHandler clientHandler = new ClientHandler();
+    private static final MintDsClientHandler clientHandler = new MintDsClientHandler();
 
     public static void main(String[] args) throws Exception {
 
@@ -28,7 +28,7 @@ public class Client {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
-                    .handler(new ClientInitializer(clientHandler));
+                    .handler(new MintDsClientInitializer(clientHandler));
 
             // Start the connection attempt.
             Channel ch = b.connect(HOST, PORT).sync().channel();

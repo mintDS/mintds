@@ -9,7 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Sharable
-public class ClientHandler  extends SimpleChannelInboundHandler<String> {
+public class MintDsClientHandler extends SimpleChannelInboundHandler<String> {
 
     private final BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 
