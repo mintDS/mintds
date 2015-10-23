@@ -20,3 +20,4 @@ The list of related open-source projects and scientific papers which mintDS make
  - **Counting Bloom Filters** by Flavio Bonomi, et al - [An Improved Construction for Counting Bloom Filters] (https://www.eecs.berkeley.edu/~sylvia/cs268-2013/papers/countingbloom.pdf)
  - **HyperLogLog** by Philippe Flajolet, et al - [HyperLogLog: the analysis of a near-optimal
 cardinality estimation algorithm] (http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf)
+ - **Count-Min Sketch** by by Graham Cormode, et al - [Count-Min Sketch] (http://dimacs.rutgers.edu/~graham/pubs/papers/cmencyc.pdf)
