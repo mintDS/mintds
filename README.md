@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mintDS/mintDS.svg)](https://travis-ci.org/mintDS/mintDS)
+
 What is mintDS?
 --------------
 
