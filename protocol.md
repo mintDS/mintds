@@ -33,3 +33,13 @@ By default, mintDS will listen for TCP connections on port 7657. It uses a simpl
 | count      | count mycounter                 | {number} \| failure {msg}                |
 | drop       | drop mycounter                  | success \| non-existent \| failure {msg} |
 
+#### CountMinSketch
+
+| Commands   | Request                         | Response                                 |
+|------------|---------------------------------|------------------------------------------|
+| create     | create countminsketch mysketch  | success \| exists \| failure {msg}       |
+| exists     | exists mysketch                 | yes \| no \| failure {msg}               |
+| add        | add mysketch myvalue            | success \| failure {msg}                 |
+| count      | count mysketch myvalue          | {number} \| failure {msg}                |
+| drop       | drop mysketch                   | success \| non-existent \| failure {msg} |
+
