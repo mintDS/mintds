@@ -3,7 +3,7 @@ Protocol
 
 By default, mintDS will listen for TCP connections on port 7657. It uses a simple ASCII protocol that is similar to redis and memcached.
 
-##### BloomFilter
+#### BloomFilter
 
 | Commands   | Request                       | Response                                 |
 |------------|-------------------------------|------------------------------------------|
@@ -12,4 +12,14 @@ By default, mintDS will listen for TCP connections on port 7657. It uses a simpl
 | add        | add myfilter myvalue          | success \| failure {msg}                 |
 | contains   | contains myfilter myvalue     | yes \| no \| failure {msg}               |
 | drop       | drop myfilter                 | success \| non-existent \| failure {msg} |
+
+#### HyperLogLog
+
+| Commands   | Request                       | Response                                 |
+|------------|-------------------------------|------------------------------------------|
+| create     | create hyperloglog mylog      | success \| exists \| failure {msg}       |
+| exists     | exists mylog                  | yes \| no \| failure {msg}               |
+| add        | add mylog myvalue             | success \| failure {msg}                 |
+| count      | count mylog                   | {number} \| failure {msg}               |
+| drop       | drop mylog                    | success \| non-existent \| failure {msg} |
 
