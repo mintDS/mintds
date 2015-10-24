@@ -1,7 +1,7 @@
 Protocol
 --------
 
-By default, mintDS will listen for TCP connections on port 7657. It uses a simple ASCII protocol that is very similar to memcached.
+By default, mintDS will listen for TCP connections on port 7657. It uses a simple ASCII protocol that is similar to redis and memcached.
 
 | Commands   | Request                       | Response                           |
 |------------|-------------------------------|------------------------------------|
