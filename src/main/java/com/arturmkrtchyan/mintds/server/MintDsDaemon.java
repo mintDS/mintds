@@ -14,13 +14,10 @@ public class MintDsDaemon {
         logger.info("Starting MintDS Server.");
         server.start();
 
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                System.out.println("Stopping Server");
-                server.stop();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Stopping MintDS Server.");
+            server.stop();
+        }));
     }
 
 }
