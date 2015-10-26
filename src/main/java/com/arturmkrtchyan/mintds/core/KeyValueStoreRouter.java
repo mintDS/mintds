@@ -1,7 +1,8 @@
 package com.arturmkrtchyan.mintds.core;
 
-import com.arturmkrtchyan.mintds.protocol.DataStructure;
-import com.arturmkrtchyan.mintds.protocol.Message;
+import com.arturmkrtchyan.mintds.protocol.request.DataStructure;
+import com.arturmkrtchyan.mintds.protocol.request.Request;
+import com.arturmkrtchyan.mintds.protocol.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +20,9 @@ public class KeyValueStoreRouter {
         storeRoutes.put(DataStructure.BloomFilter, new BloomFilterStore());
     }
 
-    public void handle(Message message) {
-        logger.debug("Handle message!");
-        storeRoutes.get(message.getDataStructure()).handle(message);
+    public Response handle(Request request) {
+        logger.debug("Handle request!");
+        return storeRoutes.get(request.getDataStructure()).handle(request);
     }
 
 }

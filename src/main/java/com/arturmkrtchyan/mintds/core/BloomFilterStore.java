@@ -1,7 +1,9 @@
 package com.arturmkrtchyan.mintds.core;
 
-import com.arturmkrtchyan.mintds.protocol.Command;
-import com.arturmkrtchyan.mintds.protocol.Message;
+import com.arturmkrtchyan.mintds.protocol.request.Command;
+import com.arturmkrtchyan.mintds.protocol.request.Request;
+import com.arturmkrtchyan.mintds.protocol.response.EnumResponse;
+import com.arturmkrtchyan.mintds.protocol.response.Response;
 import com.clearspring.analytics.stream.membership.BloomFilter;
 
 import java.util.Map;
@@ -14,13 +16,14 @@ public class BloomFilterStore implements KeyValueStore {
 
     private final Map<String, BloomFilter> map = new ConcurrentHashMap<String, BloomFilter>();
 
-    public void handle(Message message) {
-        if(message.getCommand() == Command.CREATE) {
-            create(message);
+    public Response handle(Request request) {
+        if(request.getCommand() == Command.CREATE) {
+            create(request);
         }
+        return EnumResponse.SUCCESS;
     }
 
-    private void create(Message message) {
-        map.put(message.getKey(), new BloomFilter(DEFAULT_NUMBER_OF_ELEMENTS, DEFAULT_FALSE_POSITIVE_PROBABILITY));
+    private void create(Request request) {
+        map.put(request.getKey(), new BloomFilter(DEFAULT_NUMBER_OF_ELEMENTS, DEFAULT_FALSE_POSITIVE_PROBABILITY));
     }
 }

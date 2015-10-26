@@ -1,10 +1,11 @@
 package com.arturmkrtchyan.mintds.core;
 
-import com.arturmkrtchyan.mintds.protocol.Message;
+import com.arturmkrtchyan.mintds.protocol.request.Request;
+import com.arturmkrtchyan.mintds.protocol.response.Response;
 
 public interface KeyValueStore {
 
-    void handle(Message message);
+    Response handle(Request request);
 
     enum Type {
         BloomFilter,

@@ -1,34 +1,42 @@
-package com.arturmkrtchyan.mintds.protocol;
+package com.arturmkrtchyan.mintds.protocol.request;
 
-public class Message {
+public class DefaultRequest implements Request {
 
     private Command command;
     private DataStructure dataStructure;
     private String key;
     private String value;
 
-    private Message(Command command, DataStructure dataStructure, String key, String value) {
+    private DefaultRequest(Command command, DataStructure dataStructure, String key, String value) {
         this.command = command;
         this.dataStructure = dataStructure;
         this.key = key;
         this.value = value;
     }
 
+    @Override
     public DataStructure getDataStructure() {
         return dataStructure;
     }
 
+    @Override
     public Command getCommand() {
         return command;
     }
 
+    @Override
     public String getKey() {
         return key;
     }
 
     @Override
+    public String getValue() {
+        return value;
+    }
+
+    @Override
     public String toString() {
-        return "Message{" +
+        return "DefaultRequest{" +
                 "command=" + command +
                 ", dataStructure=" + dataStructure +
                 ", key='" + key + '\'' +
@@ -65,8 +73,8 @@ public class Message {
             return this;
         }
 
-        public Message build() {
-            return new Message(command, dataStructure, key, value);
+        public DefaultRequest build() {
+            return new DefaultRequest(command, dataStructure, key, value);
         }
 
     }

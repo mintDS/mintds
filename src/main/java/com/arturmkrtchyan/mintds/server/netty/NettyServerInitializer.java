@@ -8,12 +8,17 @@ import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
+import io.netty.util.concurrent.DefaultEventExecutorGroup;
+import io.netty.util.concurrent.EventExecutorGroup;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
+    private final EventExecutorGroup group = new DefaultEventExecutorGroup(16);
+
     private final StringDecoder stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
     private final StringEncoder stringEncoder = new StringEncoder(CharsetUtil.UTF_8);
-    private final MessageDecoder messageDecoder = new MessageDecoder();
+    private final RequestDecoder requestDecoder = new RequestDecoder();
+    private final ResponseEncoder responseEncoder = new ResponseEncoder();
     private final NettyServerHandler serverHandler = new NettyServerHandler();
 
     @Override
@@ -25,13 +30,15 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         // Add the text line codec combination first,
         pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
         pipeline.addLast("stringDecoder", stringDecoder);
-        pipeline.addLast("messageDecoder", messageDecoder);
+        pipeline.addLast("requestDecoder", requestDecoder);
 
         // encoders
         pipeline.addLast("stringEncoder", stringEncoder);
+        pipeline.addLast("responseEncoder", responseEncoder);
+
 
         // business logic handler
-        pipeline.addLast("serverHandler", serverHandler);
+        pipeline.addLast(group, "serverHandler", serverHandler);
 
     }
 }
