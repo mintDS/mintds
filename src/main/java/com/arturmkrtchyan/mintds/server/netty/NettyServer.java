@@ -7,18 +7,21 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.concurrent.EventExecutorGroup;
+
+import java.util.Optional;
 
 public class NettyServer implements MintDsServer {
 
-    private EventLoopGroup bossGroup;
-    private EventLoopGroup workerGroup;
+    private Optional<EventLoopGroup> bossGroup;
+    private Optional<EventLoopGroup> workerGroup;
 
     public void start() {
-        bossGroup = new NioEventLoopGroup(1);
-        workerGroup = new NioEventLoopGroup();
+        bossGroup = Optional.of(new NioEventLoopGroup(1));
+        workerGroup = Optional.of(new NioEventLoopGroup());
         try {
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
+            b.group(bossGroup.get(), workerGroup.get())
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new NettyServerInitializer());
@@ -27,14 +30,13 @@ public class NettyServer implements MintDsServer {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+            stop();
         }
     }
 
     public void stop() {
-        bossGroup.shutdownGracefully();
-        workerGroup.shutdownGracefully();
+        bossGroup.ifPresent(EventExecutorGroup::shutdownGracefully);
+        workerGroup.ifPresent(EventExecutorGroup::shutdownGracefully);
     }
 
 }
