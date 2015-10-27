@@ -14,8 +14,9 @@ import java.util.List;
 public class RequestDecoder extends MessageToMessageDecoder<String> {
 
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, String msg, List<Object> out) throws Exception {
-        Request request = new DefaultRequest.Builder()
+    protected void decode(final ChannelHandlerContext channelHandlerContext, final String msg, final List<Object> out) {
+        // parse the message to the right request.
+        final Request request = new DefaultRequest.Builder()
                 .withCommand(Command.CREATE)
                 .withDataStructure(DataStructure.BloomFilter)
                 .withKey(String.valueOf(Math.random()))

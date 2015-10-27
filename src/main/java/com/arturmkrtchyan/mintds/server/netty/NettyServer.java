@@ -20,7 +20,7 @@ public class NettyServer implements MintDsServer {
         bossGroup = Optional.of(new NioEventLoopGroup(1));
         workerGroup = Optional.of(new NioEventLoopGroup());
         try {
-            ServerBootstrap b = new ServerBootstrap();
+            final ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup.get(), workerGroup.get())
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))

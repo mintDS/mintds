@@ -16,14 +16,14 @@ public class BloomFilterStore implements KeyValueStore {
 
     private final Map<String, BloomFilter> map = new ConcurrentHashMap<String, BloomFilter>();
 
-    public Response handle(Request request) {
+    public Response handle(final Request request) {
         if(request.getCommand() == Command.CREATE) {
             create(request);
         }
         return EnumResponse.SUCCESS;
     }
 
-    private void create(Request request) {
+    private void create(final Request request) {
         map.put(request.getKey(), new BloomFilter(DEFAULT_NUMBER_OF_ELEMENTS, DEFAULT_FALSE_POSITIVE_PROBABILITY));
     }
 }

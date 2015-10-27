@@ -13,6 +13,7 @@ import io.netty.util.concurrent.EventExecutorGroup;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
+    // Use internal executor if this doesn't scale as netty pins connections to threads.
     private final EventExecutorGroup group = new DefaultEventExecutorGroup(16);
 
     private final StringDecoder stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
@@ -22,9 +23,9 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private final NettyServerHandler serverHandler = new NettyServerHandler();
 
     @Override
-    protected void initChannel(SocketChannel ch) throws Exception {
+    protected void initChannel(final SocketChannel ch) throws Exception {
 
-        ChannelPipeline pipeline = ch.pipeline();
+        final ChannelPipeline pipeline = ch.pipeline();
 
         // decoders
         // Add the text line codec combination first,

@@ -11,7 +11,7 @@ import java.util.List;
 public class ResponseEncoder extends MessageToMessageEncoder<Response> {
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, Response response, List<Object> out) throws Exception {
+    protected void encode(final ChannelHandlerContext ctx, final Response response, final List<Object> out) {
         out.add(response.toString() + System.lineSeparator());
     }
 

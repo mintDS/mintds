@@ -17,19 +17,19 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
     private final KeyValueStoreRouter storeRouter = new KeyValueStoreRouter();
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Request msg) {
+    public void channelRead0(final ChannelHandlerContext ctx, final Request msg) {
         logger.debug("Received: " + msg.toString());
         final Response response = storeRouter.handle(msg);
         ctx.write(response);
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
+    public void channelReadComplete(final ChannelHandlerContext ctx) {
         ctx.flush();
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
         // Close the connection when an exception is raised.
         logger.error("Closing connection due to exception.", cause);
         cause.printStackTrace();
