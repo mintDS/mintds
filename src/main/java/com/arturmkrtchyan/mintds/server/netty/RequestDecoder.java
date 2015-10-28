@@ -10,6 +10,7 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Sharable
 public class RequestDecoder extends MessageToMessageDecoder<String> {
@@ -17,25 +18,33 @@ public class RequestDecoder extends MessageToMessageDecoder<String> {
     @Override
     protected void decode(final ChannelHandlerContext channelHandlerContext, final String msg, final List<Object> out) {
 
+        // FIXME handle exceptions and response immediately
+
         String[] msgParts = msg.split(" ");
 
         final Optional<Command> command = getCommand(msgParts[0]);
-        if(command.get() == Command.CREATE) {
-            final Optional<DataStructure> dataStructure = getDataStructure(msgParts[1]);
+        final Optional<DataStructure> dataStructure = getDataStructure(msgParts[1]);
+        final Optional<String> key = Optional.of(msgParts[2].trim());
+        Optional<String> value = Optional.empty();
+
+        if(command.get() == Command.ADD || command.get() == Command.CONTAINS) {
+            value = Optional.of(msgParts[3].trim());
         }
+
 
         // parse the message to the right request.
         final Request request = new DefaultRequest.Builder()
-                .withCommand(Command.CREATE)
-                .withDataStructure(DataStructure.BloomFilter)
-                .withKey(String.valueOf(Math.random()))
+                .withCommand(command.orElseThrow(IllegalStateException::new))
+                .withDataStructure(dataStructure.orElseThrow(IllegalStateException::new))
+                .withKey(key.orElseThrow(IllegalStateException::new))
+                .withValue(value)
                 .build();
         out.add(request);
     }
 
     protected Optional<Command> getCommand(final String command) {
         try {
-            return Optional.of(Command.valueOf(command.trim().toUpperCase()));
+            return Command.fromString(command.trim());
         } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }
@@ -43,7 +52,7 @@ public class RequestDecoder extends MessageToMessageDecoder<String> {
 
     protected Optional<DataStructure> getDataStructure(final String dataStructure) {
         try {
-            return Optional.of(DataStructure.valueOf(dataStructure.trim().toUpperCase()));
+            return DataStructure.fromString(dataStructure.trim());
         } catch (NullPointerException | IllegalArgumentException e) {
             return Optional.empty();
         }

@@ -1,5 +1,7 @@
 package com.arturmkrtchyan.mintds.protocol.request;
 
+import java.util.Optional;
+
 public interface Request {
 
     DataStructure getDataStructure();
@@ -8,5 +10,5 @@ public interface Request {
 
     String getKey();
 
-    String getValue();
+    Optional<String> getValue();
 }

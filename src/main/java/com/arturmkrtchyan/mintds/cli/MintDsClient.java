@@ -41,18 +41,18 @@ public class MintDsClient {
                     break;
                 }
 
-                // Sends the received line to the server.
-                lastWriteFuture = ch.writeAndFlush(line + "\r\n").sync();
-
-                // Waits for the response
-                System.out.println(clientHandler.queue().take());
-
                 // If user typed the 'bye' command, wait until the server closes
                 // the connection.
                 if ("bye".equals(line.toLowerCase())) {
                     ch.closeFuture().sync();
                     break;
                 }
+
+                // Sends the received line to the server.
+                lastWriteFuture = ch.writeAndFlush(line + "\r\n").sync();
+
+                // Waits for the response
+                System.out.println(clientHandler.queue().take());
             }
 
             // Wait until all messages are flushed before closing the channel.

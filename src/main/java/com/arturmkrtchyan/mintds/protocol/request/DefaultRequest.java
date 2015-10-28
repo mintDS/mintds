@@ -1,13 +1,15 @@
 package com.arturmkrtchyan.mintds.protocol.request;
 
+import java.util.Optional;
+
 public class DefaultRequest implements Request {
 
     private Command command;
     private DataStructure dataStructure;
     private String key;
-    private String value;
+    private Optional<String> value;
 
-    private DefaultRequest(Command command, DataStructure dataStructure, String key, String value) {
+    private DefaultRequest(Command command, DataStructure dataStructure, String key, Optional<String> value) {
         this.command = command;
         this.dataStructure = dataStructure;
         this.key = key;
@@ -30,7 +32,7 @@ public class DefaultRequest implements Request {
     }
 
     @Override
-    public String getValue() {
+    public Optional<String> getValue() {
         return value;
     }
 
@@ -48,7 +50,7 @@ public class DefaultRequest implements Request {
         private Command command;
         private DataStructure dataStructure;
         private String key;
-        private String value;
+        private Optional<String> value;
 
         public Builder() {
         }
@@ -68,7 +70,7 @@ public class DefaultRequest implements Request {
             return this;
         }
 
-        public Builder withValue(final String value) {
+        public Builder withValue(final Optional<String> value) {
             this.value = value;
             return this;
         }
