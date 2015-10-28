@@ -14,12 +14,16 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
 
     private final static Logger logger = LoggerFactory.getLogger(NettyServerHandler.class);
 
-    private final KeyValueStoreRouter storeRouter = new KeyValueStoreRouter();
+    private final KeyValueStoreRouter storeRouter;
+
+    public NettyServerHandler(KeyValueStoreRouter storeRouter) {
+        this.storeRouter = storeRouter;
+    }
 
     @Override
     public void channelRead0(final ChannelHandlerContext ctx, final Request msg) {
         logger.debug("Received: " + msg.toString());
-        final Response response = storeRouter.handle(msg);
+        final Response response = storeRouter.route(msg);
         ctx.write(response);
     }
 

@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.server.netty;
 
+import com.arturmkrtchyan.mintds.core.KeyValueStoreRouter;
 import com.arturmkrtchyan.mintds.server.MintDsServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
@@ -24,7 +25,7 @@ public class NettyServer implements MintDsServer {
             b.group(bossGroup.get(), workerGroup.get())
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new NettyServerInitializer());
+                    .childHandler(new NettyServerInitializer(new KeyValueStoreRouter()));
 
             b.bind(PORT).sync().channel().closeFuture().sync();
         } catch (InterruptedException e) {

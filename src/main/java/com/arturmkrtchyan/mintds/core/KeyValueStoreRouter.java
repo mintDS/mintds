@@ -20,7 +20,7 @@ public class KeyValueStoreRouter {
         storeRoutes.put(DataStructure.BloomFilter, new BloomFilterStore());
     }
 
-    public Response handle(final Request request) {
+    public Response route(final Request request) {
         logger.debug("Handle request!");
         return storeRoutes.get(request.getDataStructure()).handle(request);
     }

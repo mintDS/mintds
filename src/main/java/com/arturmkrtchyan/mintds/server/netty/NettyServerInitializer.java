@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.server.netty;
 
+import com.arturmkrtchyan.mintds.core.KeyValueStoreRouter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -16,11 +17,19 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     // Use internal executor if this doesn't scale as netty pins connections to threads.
     private final EventExecutorGroup group = new DefaultEventExecutorGroup(16);
 
-    private final StringDecoder stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
-    private final StringEncoder stringEncoder = new StringEncoder(CharsetUtil.UTF_8);
-    private final RequestDecoder requestDecoder = new RequestDecoder();
-    private final ResponseEncoder responseEncoder = new ResponseEncoder();
-    private final NettyServerHandler serverHandler = new NettyServerHandler();
+    private final StringDecoder stringDecoder;
+    private final StringEncoder stringEncoder;
+    private final RequestDecoder requestDecoder;
+    private final ResponseEncoder responseEncoder;
+    private final NettyServerHandler serverHandler;
+
+    public NettyServerInitializer(KeyValueStoreRouter storeRouter) {
+        stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
+        stringEncoder = new StringEncoder(CharsetUtil.UTF_8);
+        requestDecoder = new RequestDecoder();
+        responseEncoder = new ResponseEncoder();
+        serverHandler = new NettyServerHandler(storeRouter);
+    }
 
     @Override
     protected void initChannel(final SocketChannel ch) throws Exception {
