@@ -41,6 +41,10 @@ public class MintDsClient {
                     break;
                 }
 
+                if(line.trim().isEmpty()) {
+                    continue;
+                }
+
                 // If user typed the 'bye' command, wait until the server closes
                 // the connection.
                 if ("bye".equals(line.toLowerCase())) {
