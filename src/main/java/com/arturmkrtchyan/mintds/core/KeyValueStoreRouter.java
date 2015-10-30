@@ -19,6 +19,7 @@ public class KeyValueStoreRouter {
         storeRoutes = new HashMap<>();
         storeRoutes.put(DataStructure.BloomFilter, new BloomFilterStore());
         storeRoutes.put(DataStructure.HyperLogLog, new HyperLogLogStore());
+        storeRoutes.put(DataStructure.CountMinSketch, new CountMeanSketchStore());
     }
 
     public Response route(final Request request) {

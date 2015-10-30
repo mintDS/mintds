@@ -27,7 +27,9 @@ public class RequestDecoder extends MessageToMessageDecoder<String> {
         final Optional<String> key = Optional.of(msgParts[2].trim());
         Optional<String> value = Optional.empty();
 
-        if(command.get() == Command.ADD || command.get() == Command.CONTAINS) {
+        if((command.get() == Command.ADD ||
+                command.get() == Command.CONTAINS ||
+                command.get() == Command.COUNT) && msgParts.length > 3) {
             value = Optional.of(msgParts[3].trim());
         }
 
