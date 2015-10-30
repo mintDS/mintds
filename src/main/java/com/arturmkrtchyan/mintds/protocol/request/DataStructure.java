@@ -4,7 +4,6 @@ import java.util.Optional;
 
 public enum DataStructure {
     BloomFilter,
-    LogLog,
     HyperLogLog;
 
     public static Optional<DataStructure> fromString(final String dataStructure) {

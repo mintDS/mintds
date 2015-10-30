@@ -3,18 +3,18 @@ package com.arturmkrtchyan.mintds.core;
 import com.arturmkrtchyan.mintds.protocol.request.Request;
 import com.arturmkrtchyan.mintds.protocol.response.EnumResponse;
 import com.arturmkrtchyan.mintds.protocol.response.FailureResponse;
+import com.arturmkrtchyan.mintds.protocol.response.NumericResponse;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
-import com.clearspring.analytics.stream.membership.BloomFilter;
+import com.clearspring.analytics.stream.cardinality.HyperLogLog;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class BloomFilterStore implements KeyValueStore {
+public class HyperLogLogStore implements KeyValueStore {
 
-    public static final int DEFAULT_NUMBER_OF_ELEMENTS = 2 << 25;
-    public static final double DEFAULT_FALSE_POSITIVE_PROBABILITY = 1.0;
+    public static final int DEFAULT_LOG2M = 16;
 
-    private final Map<String, BloomFilter> map = new ConcurrentHashMap<>();
+    private final Map<String, HyperLogLog> map = new ConcurrentHashMap<>();
 
     public Response handle(final Request request) {
         switch (request.getCommand()) {
@@ -24,8 +24,8 @@ public class BloomFilterStore implements KeyValueStore {
                 return exists(request);
             case ADD:
                 return add(request);
-            case CONTAINS:
-                return contains(request);
+            case COUNT:
+                return count(request);
             case DROP:
                 return drop(request);
             default:
@@ -38,7 +38,7 @@ public class BloomFilterStore implements KeyValueStore {
         if(map.containsKey(request.getKey())) {
             return EnumResponse.EXISTS;
         }
-        map.put(request.getKey(), new BloomFilter(DEFAULT_NUMBER_OF_ELEMENTS, DEFAULT_FALSE_POSITIVE_PROBABILITY));
+        map.put(request.getKey(), new HyperLogLog(DEFAULT_LOG2M));
         return EnumResponse.SUCCESS;
     }
 
@@ -47,18 +47,18 @@ public class BloomFilterStore implements KeyValueStore {
     }
 
     private Response add(final Request request) {
-        final BloomFilter filter = map.get(request.getKey());
-        if(filter != null) {
-            filter.add(request.getValue().get());
+        final HyperLogLog log = map.get(request.getKey());
+        if(log != null) {
+            log.offer(request.getValue().get());
             return EnumResponse.SUCCESS;
         }
         return new FailureResponse("filter doesn't exist.");
     }
 
-    private Response contains(final Request request) {
-        final BloomFilter filter = map.get(request.getKey());
-        if(filter != null) {
-            return filter.isPresent(request.getValue().get()) ? EnumResponse.YES : EnumResponse.NO;
+    private Response count(final Request request) {
+        final HyperLogLog log = map.get(request.getKey());
+        if(log != null) {
+            return new NumericResponse<>(log.cardinality());
         }
         return new FailureResponse("filter doesn't exist.");
     }

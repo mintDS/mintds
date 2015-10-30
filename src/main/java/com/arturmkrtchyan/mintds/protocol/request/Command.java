@@ -8,7 +8,8 @@ public enum Command {
     EXISTS,
     ADD,
     DROP,
-    CONTAINS;
+    CONTAINS,
+    COUNT;
 
     public static Optional<Command> fromString(final String command) {
         for (Command cmd : Command.values()) {
