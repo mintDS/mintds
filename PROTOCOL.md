@@ -23,15 +23,6 @@ By default, mintDS will listen for TCP connections on port 7657. It uses a simpl
 | count      | count hyperloglog mylog       | {number} \| failure {msg}                |
 | drop       | drop hyperloglog mylog        | success \| non-existent \| failure {msg} |
 
-#### LinearCounter
-
-| Commands   | Request                             | Response                                 |
-|------------|-------------------------------------|------------------------------------------|
-| create     | create linearcounter mycounter      | success \| exists \| failure {msg}       |
-| exists     | exists linearcounter mycounter      | yes \| no \| failure {msg}               |
-| add        | add linearcounter mycounter myvalue | success \| failure {msg}                 |
-| count      | count linearcounter mycounter       | {number} \| failure {msg}                |
-| drop       | drop linearcounter mycounter        | success \| non-existent \| failure {msg} |
 
 #### CountMinSketch
 
@@ -43,3 +34,13 @@ By default, mintDS will listen for TCP connections on port 7657. It uses a simpl
 | count      | count countminsketch mysketch myvalue | {number} \| failure {msg}                |
 | drop       | drop countminsketch mysketch          | success \| non-existent \| failure {msg} |
 
+
+#### LinearCounter
+
+| Commands   | Request                             | Response                                 |
+|------------|-------------------------------------|------------------------------------------|
+| create     | create linearcounter mycounter      | success \| exists \| failure {msg}       |
+| exists     | exists linearcounter mycounter      | yes \| no \| failure {msg}               |
+| add        | add linearcounter mycounter myvalue | success \| failure {msg}                 |
+| count      | count linearcounter mycounter       | {number} \| failure {msg}                |
+| drop       | drop linearcounter mycounter        | success \| non-existent \| failure {msg} |
