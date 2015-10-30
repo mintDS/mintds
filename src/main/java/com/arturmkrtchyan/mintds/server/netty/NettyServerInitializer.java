@@ -22,6 +22,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private final RequestDecoder requestDecoder;
     private final ResponseEncoder responseEncoder;
     private final NettyServerHandler serverHandler;
+    private final NettyExceptionHandler exceptionHandler;
 
     public NettyServerInitializer(KeyValueStoreRouter storeRouter) {
         stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
@@ -29,6 +30,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         requestDecoder = new RequestDecoder();
         responseEncoder = new ResponseEncoder();
         serverHandler = new NettyServerHandler(storeRouter);
+        exceptionHandler = new NettyExceptionHandler();
     }
 
     @Override
@@ -49,6 +51,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
         // business logic handler
         pipeline.addLast(group, "serverHandler", serverHandler);
+        pipeline.addLast("exceptionHandler", exceptionHandler);
 
     }
 }

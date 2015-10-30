@@ -32,12 +32,4 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
         ctx.flush();
     }
 
-    @Override
-    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
-        // Close the connection when an exception is raised.
-        logger.error("Closing connection due to exception.", cause);
-        cause.printStackTrace();
-        ctx.close();
-    }
-
 }
