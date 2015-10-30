@@ -111,9 +111,10 @@
         <version>2.4.1</version>
         <configuration>
           <!-- get all project dependencies -->
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
+          <descriptors>
+              <descriptor>src/main/assembly/jar.xml</descriptor>
+              <descriptor>src/main/assembly/dist.xml</descriptor>
+          </descriptors>
 
         </configuration>
         <executions>
