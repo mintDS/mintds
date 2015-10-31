@@ -1,0 +1,7 @@
+# MintDS config YAML
+
+# tcp connection port
+port: 7657
+
+# bind the server to an address
+bind-address: 0.0.0.0
