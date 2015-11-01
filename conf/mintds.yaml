@@ -1,7 +1,10 @@
 # MintDS config YAML
 
-# tcp connection port
-port: 7657
+server:
+  # tcp connection port
+  port: 7657
+  # bind the server to an address
+  bind-address: 0.0.0.0
 
-# bind the server to an address
-bind-address: 0.0.0.0
+bloomfilter:
+    probability: 0.001
