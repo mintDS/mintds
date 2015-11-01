@@ -7,46 +7,11 @@ import com.arturmkrtchyan.mintds.protocol.response.NumericResponse;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 import com.clearspring.analytics.stream.cardinality.HyperLogLog;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-public class HyperLogLogStore implements KeyValueStore {
+public class HyperLogLogStore extends AbstractKeyValueStore<HyperLogLog> {
 
     public static final int DEFAULT_LOG2M = 16;
 
-    private final Map<String, HyperLogLog> map = new ConcurrentHashMap<>();
-
-    public Response handle(final Request request) {
-        switch (request.getCommand()) {
-            case CREATE:
-                return create(request);
-            case EXISTS:
-                return exists(request);
-            case ADD:
-                return add(request);
-            case COUNT:
-                return count(request);
-            case DROP:
-                return drop(request);
-            default:
-                return EnumResponse.SUCCESS;
-        }
-
-    }
-
-    private Response create(final Request request) {
-        if(map.containsKey(request.getKey())) {
-            return EnumResponse.EXISTS;
-        }
-        map.put(request.getKey(), new HyperLogLog(DEFAULT_LOG2M));
-        return EnumResponse.SUCCESS;
-    }
-
-    private Response exists(final Request request) {
-        return map.containsKey(request.getKey()) ? EnumResponse.YES : EnumResponse.NO;
-    }
-
-    private Response add(final Request request) {
+    public Response add(final Request request) {
         final HyperLogLog log = map.get(request.getKey());
         if(log != null) {
             log.offer(request.getValue().get());
@@ -55,7 +20,7 @@ public class HyperLogLogStore implements KeyValueStore {
         return new FailureResponse("filter doesn't exist.");
     }
 
-    private Response count(final Request request) {
+    public Response count(final Request request) {
         final HyperLogLog log = map.get(request.getKey());
         if(log != null) {
             return new NumericResponse<>(log.cardinality());
@@ -63,11 +28,8 @@ public class HyperLogLogStore implements KeyValueStore {
         return new FailureResponse("filter doesn't exist.");
     }
 
-    private Response drop(final Request request) {
-        if(!map.containsKey(request.getKey())) {
-            return EnumResponse.NON_EXISTENT;
-        }
-        map.remove(request.getKey());
-        return EnumResponse.SUCCESS;
+    @Override
+    protected HyperLogLog newElement() {
+        return new HyperLogLog(DEFAULT_LOG2M);
     }
 }
