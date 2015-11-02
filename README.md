@@ -13,13 +13,14 @@ What are the mintDS data structures?
 
 ➤ **Count–min sketch** is a space-efficient probabilistic data structure which is used to get the approximate frequencies of specific elements in a multiset. The accuracy can be easily configured.
 
-Running mintDS
---------------
-Todo
-
 Playing with mintDS
 --------------
 Todo  mintds-cli
+
+
+Running mintDS
+--------------
+Todo
 
 References
 --------------
