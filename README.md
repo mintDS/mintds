@@ -5,6 +5,10 @@ What is mintDS?
 
 mintDS is a *probabilistic data structures* server.
 
+What are the mintDS data structures?
+--------------
+**Bloom Filter** is a space-efficient probabilistic data structure which is used to test whether an element is a member of a set. Membership query returns either "possibly in set" or "definitely not in set". The probability of false positives can be easily configured.
+
 Running mintDS
 --------------
 Todo
