@@ -16,16 +16,12 @@ public class MintDsTerminal {
 
             for (; ;) {
                 String line = console.readLine();
-                if (line == null) {
+                if (line == null || "bye".equals(line.toLowerCase())) {
                     break;
                 }
 
                 if (line.trim().isEmpty()) {
                     continue;
-                }
-
-                if ("bye".equals(line.toLowerCase())) {
-                    break;
                 }
 
                 // Waits for the response
