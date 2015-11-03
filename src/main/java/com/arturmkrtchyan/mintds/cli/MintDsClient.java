@@ -12,15 +12,15 @@ public class MintDsClient {
     private static final int PORT = Integer.parseInt(System.getProperty("port", "7657"));
 
     private final MintDsClientHandler clientHandler;
-    private final EventLoopGroup eventLoopGroup;
+    private EventLoopGroup eventLoopGroup;
     private Channel channel;
 
     public MintDsClient() {
         clientHandler = new MintDsClientHandler();
-        eventLoopGroup = new NioEventLoopGroup(1);
     }
 
     public void connect() throws Exception {
+        eventLoopGroup = new NioEventLoopGroup(1);
         Bootstrap b = new Bootstrap();
         b.group(eventLoopGroup)
                 .channel(NioSocketChannel.class)
