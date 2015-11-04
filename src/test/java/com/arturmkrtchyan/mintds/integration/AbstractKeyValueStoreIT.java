@@ -8,6 +8,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,11 +18,14 @@ public class AbstractKeyValueStoreIT {
     private static MintDsServer server;
     private static ExecutorService executor;
 
-    protected MintDsClient client = new MintDsClient();
+    private static final String DEFAULT_HOST = "127.0.0.1";
+    private static final int DEFAULT_PORT = 4444;
+
+    protected MintDsClient client = new MintDsClient(Optional.of(DEFAULT_HOST), Optional.of(DEFAULT_PORT));
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        System.setProperty("port", "4444");
+        System.setProperty("port", String.valueOf(DEFAULT_PORT));
         executor = Executors.newFixedThreadPool(1);
         server = new NettyServer();
         CompletableFuture.runAsync(server::start, executor);

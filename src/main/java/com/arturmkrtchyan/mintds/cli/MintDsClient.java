@@ -6,16 +6,23 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.util.Optional;
+
 public class MintDsClient {
 
-    private static final String HOST = System.getProperty("host", "127.0.0.1");
-    private static final int PORT = Integer.parseInt(System.getProperty("port", "7657"));
+    private static final String DEFAULT_HOST = "127.0.0.1";
+    private static final int DEFAULT_PORT = 7657;
+
+    private final String host;
+    private final int port;
 
     private final MintDsClientHandler clientHandler;
     private EventLoopGroup eventLoopGroup;
     private Channel channel;
 
-    public MintDsClient() {
+    public MintDsClient(final Optional<String> host, final Optional<Integer> port) {
+        this.host = host.orElse(DEFAULT_HOST);
+        this.port = port.orElse(DEFAULT_PORT);
         clientHandler = new MintDsClientHandler();
     }
 
@@ -27,7 +34,7 @@ public class MintDsClient {
                 .handler(new MintDsClientInitializer(clientHandler));
 
         // Start the connection attempt.
-        channel = b.connect(HOST, PORT).sync().channel();
+        channel = b.connect(host, port).sync().channel();
     }
 
     public void disconnect() throws Exception {
