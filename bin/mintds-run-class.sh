@@ -8,9 +8,8 @@ fi
 
 base_dir=$(dirname $0)/..
 
-MINTD_JAR=$base_dir/target/mintDS-0.1.0-SNAPSHOT-all.jar
-CLASSPATH=$MINTD_JAR
-
+MINTDS_JAR=$base_dir/target/mintDS-0.1.0-SNAPSHOT-all.jar
+CLASSPATH=$MINTDS_JAR
 
 # Which java to use
 if [ -z "$JAVA_HOME" ]; then

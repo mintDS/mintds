@@ -2,7 +2,7 @@
 
 if [ $# -lt 1 ];
 then
-	echo "USAGE: $0 server.yaml"
+	echo "USAGE: $0 conf/mintds.yaml"
 	exit 1
 fi
 
