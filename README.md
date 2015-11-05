@@ -26,6 +26,7 @@ After starting the server you can use mintds-cli to play with mintDS.
 ```
 
 ####Bloom Filter
+
 ```shell
 
 mintDS> create bloomfilter myfilter
@@ -49,10 +50,61 @@ SUCCESS
 mintDS>
 ```
 
+####HyperLogLog
+
+```shell
+mintDS> create hyperloglog mylog
+SUCCESS
+
+mintDS> exists hyperloglog mylog
+YES
+
+mintDS> add hyperloglog mylog myvalue
+SUCCESS
+
+mintDS> add hyperloglog mylog mynewvalue
+SUCCESS
+
+mintDS> count hyperloglog mylog
+2
+
+mintDS> drop hyperloglog mylog
+SUCCESS
+
+mintDS>
+```
+
+####Count-Min Sketch
+
+```shell
+mintDS> create countminsketch mysketch
+SUCCESS
+
+mintDS> exists countminsketch mysketch
+YES
+
+mintDS> add countminsketch mysketch myvalue
+SUCCESS
+
+mintDS> count countminsketch mysketch myvalue
+1
+
+mintDS> add countminsketch mysketch myvalue
+SUCCESS
+
+mintDS> count countminsketch mysketch myvalue
+2
+
+mintDS> drop countminsketch mysketch
+SUCCESS
+
+mintDS>
+```
+
 References
 --------------
 The list of related open-source projects and scientific papers which mintDS makes use of:
- - **Bloom Filters** by Burton H. Bloom - [Space/Time Trade-offs in Hash Coding with Allowable Errors] (https://www.cs.upc.edu/~diaz/p422-bloom.pdf)
+ - **Bloom Filter** by Burton H. Bloom - [Space/Time Trade-offs in Hash Coding with Allowable Errors] (https://www.cs.upc.edu/~diaz/p422-bloom.pdf)
  - **Counting Bloom Filters** by Flavio Bonomi, et al - [An Improved Construction for Counting Bloom Filters] (https://www.eecs.berkeley.edu/~sylvia/cs268-2013/papers/countingbloom.pdf)
  - **HyperLogLog** by Philippe Flajolet, et al - [HyperLogLog: the analysis of a near-optimal
 cardinality estimation algorithm] (http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf)
