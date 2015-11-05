@@ -15,12 +15,15 @@ What are the mintDS data structures?
 
 Playing with mintDS
 --------------
-Todo  mintds-cli
+To run mintDS server simply type:
+```shell
+ ./bin/mintds-start.sh conf/mintds.yml
+```
 
-
-Running mintDS
---------------
-Todo
+After starting the server you can use mintds-cli to play with mintDS. 
+```shell
+./bin/mintds-cli.sh --host localhost --port 7657
+```
 
 References
 --------------
