@@ -25,6 +25,30 @@ After starting the server you can use mintds-cli to play with mintDS.
 ./bin/mintds-cli.sh --host localhost --port 7657
 ```
 
+####Bloom Filter
+```shell
+
+mintDS> create bloomfilter myfilter
+SUCCESS
+
+mintDS> exists bloomfilter myfilter
+YES
+
+mintDS> add bloomfilter myfilter myvalue
+SUCCESS
+
+mintDS> contains bloomfilter myfilter myvalue
+YES
+
+mintDS> contains bloomfilter myfilter mynewvalue
+NO
+
+mintDS> drop bloomfilter myfilter
+SUCCESS
+
+mintDS>
+```
+
 References
 --------------
 The list of related open-source projects and scientific papers which mintDS makes use of:
