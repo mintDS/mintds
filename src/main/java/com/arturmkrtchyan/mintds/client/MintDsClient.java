@@ -14,42 +14,25 @@ import java.util.stream.IntStream;
 
 public class MintDsClient {
 
-    private static final String DEFAULT_HOST = "127.0.0.1";
-    private static final int DEFAULT_PORT = 7657;
+    //https://github.com/jonathanedgecombe/opencube/blob/6570e5dea1c54ca28c85e4d8595d2b656d27161e/src/main/java/com/opencube/server/io/pipeline/MinecraftHandler.java
+    // https://github.com/jonathanedgecombe/opencube/blob/6570e5dea1c54ca28c85e4d8595d2b656d27161e/src/main/java/com/opencube/server/io/Attributes.java
+
+    // https://github.com/wg/lettuce
+    // https://github.com/AsyncHttpClient/async-http-client
+
     private static final int DEFAULT_THREADS = 1;
     private static final int DEFAULT_CONNECTIONS = 16;
 
-    private final String host;
-    private final int port;
-    private final int numberOfThreads;
-    private final int numberOfConnections;
-    private final List<Channel> channels;
-    private final Random random;
+    private String host;
+    private int port;
+    private int numberOfThreads;
+    private int numberOfConnections;
+    private List<Channel> channels;
+    private Random random;
 
     private EventLoopGroup eventLoopGroup;
 
-    public MintDsClient(final Optional<String> host,
-                        final Optional<Integer> port) {
-        this(host, port, Optional.empty(), Optional.empty());
-    }
-
-    public MintDsClient(final Optional<String> host,
-                        final Optional<Integer> port,
-                        final Optional<Integer> numberOfThreads,
-                        final Optional<Integer> numberOfConnections) {
-        this.host = host.orElse(DEFAULT_HOST);
-        this.port = port.orElse(DEFAULT_PORT);
-        this.numberOfThreads = numberOfThreads.orElse(DEFAULT_THREADS);
-        this.numberOfConnections = numberOfConnections.orElse(DEFAULT_CONNECTIONS);
-        this.channels = new ArrayList<>(this.numberOfConnections);
-        this.random = new Random();
-
-        try {
-            connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    private MintDsClient() {}
 
     private void connect() throws Exception {
         MintDsClientHandler handler = new MintDsClientHandler();
@@ -94,10 +77,12 @@ public class MintDsClient {
 
     public static void main(String[] args) throws Exception {
 
-        final Optional<String> host = args.length > 0 ? Optional.of(args[0]) : Optional.empty();
-        final Optional<Integer> port = args.length > 1 ? Optional.of(Integer.valueOf(args[1])) : Optional.empty();
-
-        MintDsClient client = new MintDsClient(host, port);
+        MintDsClient client = new MintDsClient.Builder()
+                .host("localhost")
+                .port(7657)
+                .numberOfConnections(16)
+                .numberOfThreads(1)
+                .build();
 
         long start = System.currentTimeMillis();
 
@@ -115,6 +100,44 @@ public class MintDsClient {
 
         System.out.println(end - start);
         //client.disconnect();
+
+    }
+
+    public static class Builder {
+
+        private MintDsClient client = new MintDsClient();
+
+        public Builder host(final String host) {
+            client.host = host;
+            return this;
+        }
+
+        public Builder port(final int port) {
+            client.port = port;
+            return this;
+        }
+
+        public Builder numberOfThreads(final int threads) {
+            client.numberOfThreads = threads;
+            return this;
+        }
+
+        public Builder numberOfConnections(final int connections) {
+            client.numberOfConnections = connections;
+            return this;
+        }
+
+        public MintDsClient build() {
+            client.channels = new ArrayList<>(client.numberOfConnections);
+            client.random = new Random();
+
+            try {
+                client.connect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return client;
+        }
 
     }
 
