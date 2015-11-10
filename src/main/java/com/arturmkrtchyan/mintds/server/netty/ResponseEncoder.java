@@ -12,7 +12,7 @@ public class ResponseEncoder extends MessageToMessageEncoder<Response> {
 
     @Override
     protected void encode(final ChannelHandlerContext ctx, final Response response, final List<Object> out) {
-        out.add(response.toString() + System.lineSeparator());
+        out.add(response.toString().toLowerCase() + System.lineSeparator());
     }
 
 }

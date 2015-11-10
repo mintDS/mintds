@@ -87,6 +87,12 @@
       <version>1.16</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.javatuples</groupId>
+      <artifactId>javatuples</artifactId>
+      <version>1.2</version>
+    </dependency>
+
 
       <!-- Testing -->
     <dependency>

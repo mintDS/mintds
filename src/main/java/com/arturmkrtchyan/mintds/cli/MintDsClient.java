@@ -42,12 +42,15 @@ public class MintDsClient {
         eventLoopGroup.shutdownGracefully();
     }
 
-    public String send(final String message) throws Exception {
-        // Sends the message to the server.
-        channel.writeAndFlush(message + "\r\n").sync();
-
-        // Waits for the response
-        return clientHandler.queue().take();
+    public String send(final String message) throws RuntimeException {
+        try {
+            // Sends the message to the server.
+            channel.writeAndFlush(message + "\r\n").sync();
+            // Waits for the response
+            return clientHandler.queue().take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

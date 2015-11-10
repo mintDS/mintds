@@ -1,12 +1,13 @@
 package com.arturmkrtchyan.mintds.integration;
 
 import org.javatuples.Pair;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class BloomFilterIT extends AbstractKeyValueStoreIT {
+public class HyperLogLogIT extends AbstractKeyValueStoreIT {
 
     private List<Pair<String, String>> happyUseCaseData() {
         return Arrays.asList(
