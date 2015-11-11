@@ -11,15 +11,15 @@ public class HyperLogLogIT extends AbstractKeyValueStoreIT {
 
     private List<Pair<String, String>> happyUseCaseData() {
         return Arrays.asList(
-            new Pair<>("create bloomfilter myfilter", "success"),
-            new Pair<>("create bloomfilter myfilter", "exists"),
-            new Pair<>("exists bloomfilter myfilter", "yes"),
-            new Pair<>("exists bloomfilter newfilter", "no"),
-            new Pair<>("add bloomfilter myfilter myvalue", "success"),
-            new Pair<>("contains bloomfilter myfilter myvalue", "yes"),
-            new Pair<>("contains bloomfilter myfilter mynewvalue", "no"),
-            new Pair<>("drop bloomfilter myfilter", "success"),
-            new Pair<>("drop bloomfilter mynewfilter", "non_existent")
+            new Pair<>("create hyperloglog mylog", "success"),
+            new Pair<>("create hyperloglog mylog", "exists"),
+            new Pair<>("exists hyperloglog mylog", "yes"),
+            new Pair<>("exists hyperloglog newlog", "no"),
+            new Pair<>("add hyperloglog mylog myvalue", "success"),
+            new Pair<>("count hyperloglog mylog", "1"),
+            new Pair<>("count hyperloglog newlog", "failure filter doesn't exist."),
+            new Pair<>("drop hyperloglog mylog", "success"),
+            new Pair<>("drop hyperloglog newlog", "non_existent")
         );
     }
 
