@@ -15,7 +15,6 @@ public class NettyExceptionHandler extends ChannelHandlerAdapter {
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
         logger.error("Exception is thrown in the pipeline.", cause);
-        cause.printStackTrace();
-        ctx.write(new FailureResponse(cause.getMessage()));
+        ctx.write(new FailureResponse(cause.getCause().getMessage()));
     }
 }
