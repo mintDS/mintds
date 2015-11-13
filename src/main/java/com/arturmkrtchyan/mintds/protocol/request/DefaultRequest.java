@@ -49,34 +49,35 @@ public class DefaultRequest implements Request {
     public static Request fromString(final String msg) {
         String[] msgParts = msg.split(" ");
 
-        final Optional<Command> command = Command.fromString(msgParts[0].trim());
-        command.orElseThrow(() -> new IllegalStateException("Invalid Command."));
+        final Command command = Command.fromString(msgParts[0].trim())
+                .orElseThrow(() -> new IllegalStateException("Invalid Command."));
 
         if(msgParts.length < 2) {
             throw new IllegalStateException("DataStructure is missing.");
         }
-        final Optional<DataStructure> dataStructure = DataStructure.fromString(msgParts[1].trim());
-        dataStructure.orElseThrow(() -> new IllegalStateException("Invalid DataStructure."));
+        final DataStructure dataStructure = DataStructure.fromString(msgParts[1].trim())
+                .orElseThrow(() -> new IllegalStateException("Invalid DataStructure."));
 
         if(msgParts.length < 3) {
             throw new IllegalStateException("Key is missing.");
         }
-        final Optional<String> key = Optional.of(msgParts[2].trim());
+        final String key = msgParts[2].trim();
+
         Optional<String> value = Optional.empty();
 
-        // FIXME add datastructure level checks.
-        if((command.get() == Command.ADD ||
-                command.get() == Command.CONTAINS ||
-                command.get() == Command.COUNT) && msgParts.length > 3) {
+        
+        if((command == Command.ADD ||
+                command == Command.CONTAINS ||
+                command == Command.COUNT) && msgParts.length > 3) {
             value = Optional.of(msgParts[3].trim());
         }
 
 
         // parse the message to the right request.
         return new DefaultRequest.Builder()
-                .withCommand(command.orElseThrow(IllegalStateException::new))
-                .withDataStructure(dataStructure.orElseThrow(IllegalStateException::new))
-                .withKey(key.orElseThrow(IllegalStateException::new))
+                .withCommand(command)
+                .withDataStructure(dataStructure)
+                .withKey(key)
                 .withValue(value)
                 .build();
     }
