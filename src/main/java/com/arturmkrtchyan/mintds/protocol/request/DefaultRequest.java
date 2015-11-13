@@ -16,36 +16,6 @@ public class DefaultRequest implements Request {
         this.value = value;
     }
 
-    @Override
-    public DataStructure getDataStructure() {
-        return dataStructure;
-    }
-
-    @Override
-    public Command getCommand() {
-        return command;
-    }
-
-    @Override
-    public String getKey() {
-        return key;
-    }
-
-    @Override
-    public Optional<String> getValue() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultRequest{" +
-                "command=" + command +
-                ", dataStructure=" + dataStructure +
-                ", key='" + key + '\'' +
-                ", value='" + value + '\'' +
-                '}';
-    }
-
     public static Request fromString(final String msg) {
         String[] msgParts = msg.split(" ");
 
@@ -65,11 +35,18 @@ public class DefaultRequest implements Request {
 
         Optional<String> value = Optional.empty();
 
-        
-        if((command == Command.ADD ||
-                command == Command.CONTAINS ||
-                command == Command.COUNT) && msgParts.length > 3) {
-            value = Optional.of(msgParts[3].trim());
+        if(dataStructure == DataStructure.BloomFilter &&
+                (command == Command.ADD || command == Command.CONTAINS)) {
+            value = getValue(msgParts);
+        }
+
+        if(dataStructure == DataStructure.HyperLogLog && command == Command.ADD) {
+            value = getValue(msgParts);
+        }
+
+        if(dataStructure == DataStructure.CountMinSketch &&
+                (command == Command.ADD || command == Command.COUNT)) {
+            value = getValue(msgParts);
         }
 
 
@@ -80,6 +57,13 @@ public class DefaultRequest implements Request {
                 .withKey(key)
                 .withValue(value)
                 .build();
+    }
+
+    private static Optional<String> getValue(final String[] msg) {
+        if(msg.length < 4) {
+            throw new IllegalStateException("Value is missing.");
+        }
+        return Optional.of(msg[3].trim());
     }
 
     public final static class Builder {
@@ -116,4 +100,35 @@ public class DefaultRequest implements Request {
         }
 
     }
+
+    @Override
+    public DataStructure getDataStructure() {
+        return dataStructure;
+    }
+
+    @Override
+    public Command getCommand() {
+        return command;
+    }
+
+    @Override
+    public String getKey() {
+        return key;
+    }
+
+    @Override
+    public Optional<String> getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultRequest{" +
+                "command=" + command +
+                ", dataStructure=" + dataStructure +
+                ", key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
+
 }
