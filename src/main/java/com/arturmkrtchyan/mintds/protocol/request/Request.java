@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.protocol.request;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface Request {
@@ -11,5 +12,7 @@ public interface Request {
     String getKey();
 
     Optional<String> getValue();
+
+    Map<String, String> getOptions();
 
 }

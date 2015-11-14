@@ -1,5 +1,7 @@
 package com.arturmkrtchyan.mintds.protocol.request;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class DefaultRequest implements Request {
@@ -8,16 +10,22 @@ public class DefaultRequest implements Request {
     private DataStructure dataStructure;
     private String key;
     private Optional<String> value;
+    private Map<String, String> options;
 
-    private DefaultRequest(Command command, DataStructure dataStructure, String key, Optional<String> value) {
+    private DefaultRequest(Command command,
+                           DataStructure dataStructure,
+                           String key,
+                           Optional<String> value,
+                           Map<String, String> options) {
         this.command = command;
         this.dataStructure = dataStructure;
         this.key = key;
         this.value = value;
+        this.options = options;
     }
 
     public static Request fromString(final String msg) {
-        String[] msgParts = msg.split(" ");
+        final String[] msgParts = msg.split(" ");
 
         final Command command = Command.fromString(msgParts[0].trim())
                 .orElseThrow(() -> new IllegalStateException("Invalid Command."));
@@ -33,22 +41,7 @@ public class DefaultRequest implements Request {
         }
         final String key = msgParts[2].trim();
 
-        Optional<String> value = Optional.empty();
-
-        if(dataStructure == DataStructure.BloomFilter &&
-                (command == Command.ADD || command == Command.CONTAINS)) {
-            value = getValue(msgParts);
-        }
-
-        if(dataStructure == DataStructure.HyperLogLog && command == Command.ADD) {
-            value = getValue(msgParts);
-        }
-
-        if(dataStructure == DataStructure.CountMinSketch &&
-                (command == Command.ADD || command == Command.COUNT)) {
-            value = getValue(msgParts);
-        }
-
+        final String value = getValue(command, dataStructure, msgParts);
 
         // parse the message to the right request.
         return new DefaultRequest.Builder()
@@ -59,11 +52,28 @@ public class DefaultRequest implements Request {
                 .build();
     }
 
-    private static Optional<String> getValue(final String[] msg) {
+    private static String getValue(final Command command, final DataStructure dataStructure, final String[] msg) {
+        if(dataStructure == DataStructure.BloomFilter &&
+                (command == Command.ADD || command == Command.CONTAINS)) {
+            return getValue(msg);
+        }
+
+        if(dataStructure == DataStructure.HyperLogLog && command == Command.ADD) {
+            return getValue(msg);
+        }
+
+        if(dataStructure == DataStructure.CountMinSketch &&
+                (command == Command.ADD || command == Command.COUNT)) {
+            return getValue(msg);
+        }
+        return null;
+    }
+
+    private static String getValue(final String[] msg) {
         if(msg.length < 4) {
             throw new IllegalStateException("Value is missing.");
         }
-        return Optional.of(msg[3].trim());
+        return msg[3].trim();
     }
 
     public final static class Builder {
@@ -71,8 +81,10 @@ public class DefaultRequest implements Request {
         private DataStructure dataStructure;
         private String key;
         private Optional<String> value;
+        private Map<String, String> options;
 
         public Builder() {
+            options = new HashMap<>();
         }
 
         public Builder withCommand(final Command command) {
@@ -90,13 +102,18 @@ public class DefaultRequest implements Request {
             return this;
         }
 
-        public Builder withValue(final Optional<String> value) {
-            this.value = value;
+        public Builder withValue(final String value) {
+            this.value = Optional.ofNullable(value);
+            return this;
+        }
+
+        public Builder withOption(final String key, final String value) {
+            options.put(key, value);
             return this;
         }
 
         public DefaultRequest build() {
-            return new DefaultRequest(command, dataStructure, key, value);
+            return new DefaultRequest(command, dataStructure, key, value, options);
         }
 
     }
@@ -122,13 +139,18 @@ public class DefaultRequest implements Request {
     }
 
     @Override
+    public Map<String, String> getOptions() {
+        return options;
+    }
+
+    @Override
     public String toString() {
         return "DefaultRequest{" +
                 "command=" + command +
                 ", dataStructure=" + dataStructure +
                 ", key='" + key + '\'' +
-                ", value='" + value + '\'' +
+                ", value=" + value +
+                ", options=" + options +
                 '}';
     }
-
 }
