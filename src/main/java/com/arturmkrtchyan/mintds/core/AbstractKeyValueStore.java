@@ -28,7 +28,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
             add(element, request);
             return EnumResponse.SUCCESS;
         }
-        return new FailureResponse("filter doesn't exist.");
+        return new FailureResponse("Failure filter doesn't exist.");
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
         if(element != null) {
             return count(element, request);
         }
-        return new FailureResponse("filter doesn't exist.");
+        return new FailureResponse("Failure filter doesn't exist.");
     }
 
     @Override
@@ -60,16 +60,16 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
         if(element != null) {
             return contains(element, request);
         }
-        return new FailureResponse("filter doesn't exist.");
+        return new FailureResponse("Failure filter doesn't exist.");
     }
 
 
     protected Response count(final E element, final Request request) {
-        return new FailureResponse("unsupported command");
+        return new FailureResponse("Failure unsupported command");
     }
 
     protected Response contains(final E element, final Request request) {
-        return new FailureResponse("unsupported command");
+        return new FailureResponse("Failure unsupported command");
     }
 
     protected abstract E newElement();

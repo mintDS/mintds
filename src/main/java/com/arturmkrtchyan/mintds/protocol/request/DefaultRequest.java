@@ -28,16 +28,16 @@ public class DefaultRequest implements Request {
         final String[] msgParts = msg.split(" ");
 
         final Command command = Command.fromString(msgParts[0].trim())
-                .orElseThrow(() -> new IllegalStateException("Invalid Command."));
+                .orElseThrow(() -> new IllegalStateException("Failure Invalid Command."));
 
         if(msgParts.length < 2) {
-            throw new IllegalStateException("DataStructure is missing.");
+            throw new IllegalStateException("Failure DataStructure is missing.");
         }
         final DataStructure dataStructure = DataStructure.fromString(msgParts[1].trim())
-                .orElseThrow(() -> new IllegalStateException("Invalid DataStructure."));
+                .orElseThrow(() -> new IllegalStateException("Failure Invalid DataStructure."));
 
         if(msgParts.length < 3) {
-            throw new IllegalStateException("Key is missing.");
+            throw new IllegalStateException("Failure Key is missing.");
         }
         final String key = msgParts[2].trim();
 
@@ -71,7 +71,7 @@ public class DefaultRequest implements Request {
 
     private static String getValue(final String[] msg) {
         if(msg.length < 4) {
-            throw new IllegalStateException("Value is missing.");
+            throw new IllegalStateException("Failure Value is missing.");
         }
         return msg[3].trim();
     }

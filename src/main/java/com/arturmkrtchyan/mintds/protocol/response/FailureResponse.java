@@ -13,6 +13,6 @@ public class FailureResponse implements Response {
 
     @Override
     public String toString() {
-        return "failure " + message;
+        return message;
     }
 }

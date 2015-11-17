@@ -47,7 +47,7 @@ public class MintDsClient {
             // Sends the message to the server.
             channel.writeAndFlush(message + "\r\n").sync();
             // Waits for the response
-            return clientHandler.queue().take();
+            return clientHandler.queue().take().toString().toLowerCase();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
