@@ -16,7 +16,7 @@ public class CountMinSketchStore extends AbstractKeyValueStore<CountMinSketch> {
     }
 
     @Override
-    public void add(final CountMinSketch sketch,  final Request request) {
+    public void add(final CountMinSketch sketch, final Request request) {
         sketch.add(request.getValue().get(), 1);
     }
 

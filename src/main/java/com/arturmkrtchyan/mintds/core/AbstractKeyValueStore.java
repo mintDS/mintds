@@ -14,7 +14,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
 
     @Override
     public Response create(final Request request) {
-        if(map.containsKey(request.getKey())) {
+        if (map.containsKey(request.getKey())) {
             return EnumResponse.EXISTS;
         }
         map.put(request.getKey(), newElement());
@@ -24,7 +24,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
     @Override
     public Response add(final Request request) {
         final E element = map.get(request.getKey());
-        if(element != null) {
+        if (element != null) {
             add(element, request);
             return EnumResponse.SUCCESS;
         }
@@ -38,7 +38,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
 
     @Override
     public Response drop(final Request request) {
-        if(!map.containsKey(request.getKey())) {
+        if (!map.containsKey(request.getKey())) {
             return EnumResponse.NON_EXISTENT;
         }
         map.remove(request.getKey());
@@ -48,7 +48,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
     @Override
     public Response count(final Request request) {
         final E element = map.get(request.getKey());
-        if(element != null) {
+        if (element != null) {
             return count(element, request);
         }
         return new FailureResponse("Failure filter doesn't exist.");
@@ -57,7 +57,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
     @Override
     public Response contains(final Request request) {
         final E element = map.get(request.getKey());
-        if(element != null) {
+        if (element != null) {
             return contains(element, request);
         }
         return new FailureResponse("Failure filter doesn't exist.");
@@ -73,6 +73,7 @@ public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
     }
 
     protected abstract E newElement();
+
     protected abstract void add(E element, Request request);
 
 }

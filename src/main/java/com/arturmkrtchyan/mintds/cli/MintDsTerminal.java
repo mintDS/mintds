@@ -20,7 +20,7 @@ public class MintDsTerminal {
             MintDsClient client = new MintDsClient(host, port);
             client.connect();
 
-            for (; ;) {
+            for (; ; ) {
                 String line = console.readLine();
                 if (line == null || "bye".equals(line.toLowerCase())) {
                     break;

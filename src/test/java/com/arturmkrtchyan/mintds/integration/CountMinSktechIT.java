@@ -11,17 +11,17 @@ public class CountMinSktechIT extends AbstractKeyValueStoreIT {
 
     private List<Pair<String, String>> happyUseCaseData() {
         return Arrays.asList(
-            new Pair<>("create countminsketch mysketch", "success"),
-            new Pair<>("create countminsketch mysketch", "exists"),
-            new Pair<>("exists countminsketch mysketch", "yes"),
-            new Pair<>("exists countminsketch newsketch", "no"),
-            new Pair<>("add countminsketch mysketch myvalue", "success"),
-            new Pair<>("add countminsketch mysketch myvalue", "success"),
-            new Pair<>("add countminsketch mysketch myvalue", "success"),
-            new Pair<>("count countminsketch mysketch myvalue", "3"),
-            new Pair<>("count countminsketch mysketch mynewvalue", "0"),
-            new Pair<>("drop countminsketch mysketch", "success"),
-            new Pair<>("drop countminsketch mysketch", "non_existent")
+                new Pair<>("create countminsketch mysketch", "success"),
+                new Pair<>("create countminsketch mysketch", "exists"),
+                new Pair<>("exists countminsketch mysketch", "yes"),
+                new Pair<>("exists countminsketch newsketch", "no"),
+                new Pair<>("add countminsketch mysketch myvalue", "success"),
+                new Pair<>("add countminsketch mysketch myvalue", "success"),
+                new Pair<>("add countminsketch mysketch myvalue", "success"),
+                new Pair<>("count countminsketch mysketch myvalue", "3"),
+                new Pair<>("count countminsketch mysketch mynewvalue", "0"),
+                new Pair<>("drop countminsketch mysketch", "success"),
+                new Pair<>("drop countminsketch mysketch", "non_existent")
         );
     }
 

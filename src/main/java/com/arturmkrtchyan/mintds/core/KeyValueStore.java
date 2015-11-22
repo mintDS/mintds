@@ -26,10 +26,15 @@ public interface KeyValueStore {
     }
 
     Response create(Request request);
+
     Response exists(Request request);
+
     Response add(Request request);
+
     Response contains(Request request);
+
     Response drop(Request request);
+
     Response count(Request request);
 
 
