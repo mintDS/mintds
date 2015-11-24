@@ -1,6 +1,6 @@
 package com.arturmkrtchyan.mintds.integration;
 
-import com.arturmkrtchyan.mintds.cli.MintDsClient;
+import com.arturmkrtchyan.mintds.client.MintDsClient;
 import com.arturmkrtchyan.mintds.server.MintDsServer;
 import com.arturmkrtchyan.mintds.server.netty.NettyServer;
 import org.junit.After;
@@ -8,7 +8,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,12 +15,11 @@ import java.util.concurrent.Executors;
 public class AbstractKeyValueStoreIT {
 
     private static MintDsServer server;
+    protected static MintDsClient client;
     private static ExecutorService executor;
 
     private static final String DEFAULT_HOST = "127.0.0.1";
     private static final int DEFAULT_PORT = 4444;
-
-    protected MintDsClient client = new MintDsClient(Optional.of(DEFAULT_HOST), Optional.of(DEFAULT_PORT));
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -30,23 +28,20 @@ public class AbstractKeyValueStoreIT {
         server = new NettyServer();
         CompletableFuture.runAsync(server::start, executor);
         Thread.sleep(3000);
+
+        client = new MintDsClient.Builder()
+                .host(DEFAULT_HOST)
+                .port(DEFAULT_PORT)
+                .numberOfThreads(1)
+                .numberOfConnections(1)
+                .build();
     }
 
     @AfterClass
-    public static void afterClass() {
+    public static void afterClass() throws Exception {
+        client.close();
         server.stop();
         executor.shutdown();
-    }
-
-
-    @Before
-    public void beforeMethod() throws Exception {
-        client.connect();
-    }
-
-    @After
-    public void afterMethod() throws Exception {
-        client.disconnect();
     }
 
 }

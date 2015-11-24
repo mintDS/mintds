@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.integration;
 
+import com.arturmkrtchyan.mintds.client.MintDsCallback;
 import org.javatuples.Pair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,9 +30,18 @@ public class CountMinSktechIT extends AbstractKeyValueStoreIT {
     public void happyUseCase() throws Exception {
         List<Pair<String, String>> data = happyUseCaseData();
         data.stream().forEach(pair -> {
-            String response = client.send(pair.getValue0());
-            Assert.assertEquals("Sending request->" + pair.getValue0(),
-                    pair.getValue1(), response);
+            client.send(pair.getValue0(), new MintDsCallback() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    Assert.fail(throwable.getMessage());
+                }
+
+                @Override
+                public void onSuccess(String msg) {
+                    Assert.assertEquals("Sending request->" + pair.getValue0(),
+                            pair.getValue1(), msg);
+                }
+            });
         });
     }
 
