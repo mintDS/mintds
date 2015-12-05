@@ -5,7 +5,7 @@ import com.arturmkrtchyan.mintds.protocol.response.NumericResponse;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 import com.clearspring.analytics.stream.cardinality.HyperLogLog;
 
-public class HyperLogLogStore extends AbstractKeyValueStore<HyperLogLog> {
+class HyperLogLogStore extends AbstractKeyValueStore<HyperLogLog> {
 
     public static final int DEFAULT_LOG2M = 16;
 

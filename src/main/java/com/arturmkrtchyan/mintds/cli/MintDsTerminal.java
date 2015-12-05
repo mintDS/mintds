@@ -1,11 +1,11 @@
 package com.arturmkrtchyan.mintds.cli;
 
-import com.arturmkrtchyan.mintds.client.MintDsCallback;
+import com.arturmkrtchyan.mintds.protocol.response.Response;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 
 import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CompletableFuture;
 
 import com.arturmkrtchyan.mintds.client.MintDsClient;
 
@@ -13,8 +13,6 @@ public class MintDsTerminal {
 
     private static final String DEFAULT_HOST = "127.0.0.1";
     private static final int DEFAULT_PORT = 7657;
-
-    private static CountDownLatch signalNext = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
 
@@ -26,7 +24,6 @@ public class MintDsTerminal {
             console.setPrompt("\nmintDS> ");
             console.setBellEnabled(false);
 
-            //MintDsClient client = new MintDsClient(host, port);
             MintDsClient client = new MintDsClient.Builder()
                     .host(host.orElse(DEFAULT_HOST))
                     .port(port.orElse(DEFAULT_PORT))
@@ -45,18 +42,8 @@ public class MintDsTerminal {
                 }
 
                 // Waits for the response
-                client.send(line, new MintDsCallback() {
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        System.out.println(throwable.getMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(String msg) {
-                        System.out.println(msg);
-                    }
-                });
-                //signalNext.await();
+                CompletableFuture<Response> future = client.send(line);
+                System.out.println(future.get());
             }
 
             client.close();

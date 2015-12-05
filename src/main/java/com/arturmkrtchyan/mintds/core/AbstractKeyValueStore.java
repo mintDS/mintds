@@ -8,7 +8,7 @@ import com.arturmkrtchyan.mintds.protocol.response.Response;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class AbstractKeyValueStore<E> implements KeyValueStore {
+abstract class AbstractKeyValueStore<E> implements KeyValueStore {
 
     protected final Map<String, E> map = new ConcurrentHashMap<>();
 

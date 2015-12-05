@@ -1,45 +1,41 @@
 package com.arturmkrtchyan.mintds.integration;
 
-import com.arturmkrtchyan.mintds.client.MintDsCallback;
+import com.arturmkrtchyan.mintds.protocol.response.Response;
 import org.javatuples.Pair;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class HyperLogLogIT extends AbstractKeyValueStoreIT {
 
-    private List<Pair<String, String>> happyUseCaseData() {
+    private List<Pair<String, Response>> happyUseCaseData() {
         return Arrays.asList(
-                new Pair<>("create hyperloglog mylog", "success"),
-                new Pair<>("create hyperloglog mylog", "exists"),
-                new Pair<>("exists hyperloglog mylog", "yes"),
-                new Pair<>("exists hyperloglog newlog", "no"),
-                new Pair<>("add hyperloglog mylog myvalue", "success"),
-                new Pair<>("count hyperloglog mylog", "1"),
-                new Pair<>("count hyperloglog newlog", "failure filter doesn't exist."),
-                new Pair<>("drop hyperloglog mylog", "success"),
-                new Pair<>("drop hyperloglog newlog", "non_existent")
+                new Pair<>("create hyperloglog mylog", Response.fromString("success")),
+                new Pair<>("create hyperloglog mylog", Response.fromString("exists")),
+                new Pair<>("exists hyperloglog mylog", Response.fromString("yes")),
+                new Pair<>("exists hyperloglog newlog", Response.fromString("no")),
+                new Pair<>("add hyperloglog mylog myvalue", Response.fromString("success")),
+                new Pair<>("count hyperloglog mylog", Response.fromString("1")),
+                new Pair<>("count hyperloglog newlog", Response.fromString("failure filter doesn't exist.")),
+                new Pair<>("drop hyperloglog mylog", Response.fromString("success")),
+                new Pair<>("drop hyperloglog newlog", Response.fromString("non_existent"))
         );
     }
 
     @Test
     public void happyUseCase() throws Exception {
-        List<Pair<String, String>> data = happyUseCaseData();
+        List<Pair<String, Response>> data = happyUseCaseData();
         data.stream().forEach(pair -> {
-            client.send(pair.getValue0(), new MintDsCallback() {
-                @Override
-                public void onFailure(Throwable throwable) {
-                    Assert.fail(throwable.getMessage());
-                }
-
-                @Override
-                public void onSuccess(String msg) {
-                    Assert.assertEquals("Sending request->" + pair.getValue0(),
-                            pair.getValue1(), msg);
-                }
-            });
+            CompletableFuture<Response> future = client.send(pair.getValue0());
+            try {
+                Assert.assertEquals("Sending request->" + pair.getValue0(),
+                        pair.getValue1(), future.get());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 

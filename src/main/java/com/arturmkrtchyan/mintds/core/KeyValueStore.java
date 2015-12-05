@@ -4,7 +4,7 @@ import com.arturmkrtchyan.mintds.protocol.request.Request;
 import com.arturmkrtchyan.mintds.protocol.response.EnumResponse;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 
-public interface KeyValueStore {
+interface KeyValueStore {
 
     default public Response handle(final Request request) {
         switch (request.getCommand()) {

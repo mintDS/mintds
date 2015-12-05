@@ -6,7 +6,7 @@ import com.arturmkrtchyan.mintds.protocol.response.FailureResponse;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 import com.clearspring.analytics.stream.membership.BloomFilter;
 
-public class BloomFilterStore extends AbstractKeyValueStore<BloomFilter> {
+class BloomFilterStore extends AbstractKeyValueStore<BloomFilter> {
 
     public static final int DEFAULT_NUMBER_OF_ELEMENTS = 2 << 25;
     public static final double DEFAULT_FALSE_POSITIVE_PROBABILITY = 1.0;

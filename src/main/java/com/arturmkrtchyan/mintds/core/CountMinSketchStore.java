@@ -7,7 +7,7 @@ import com.clearspring.analytics.stream.frequency.CountMinSketch;
 
 import java.time.LocalTime;
 
-public class CountMinSketchStore extends AbstractKeyValueStore<CountMinSketch> {
+class CountMinSketchStore extends AbstractKeyValueStore<CountMinSketch> {
 
     public static final int DEFAULT_WIDTH = 2 << 16;
     public static final int DEFAULT_DEPTH = 4;
