@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.cli;
 
+import com.arturmkrtchyan.mintds.protocol.request.DefaultRequest;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
@@ -42,7 +43,7 @@ public class MintDsTerminal {
                 }
 
                 // Waits for the response
-                CompletableFuture<Response> future = client.send(line);
+                CompletableFuture<Response> future = client.send(DefaultRequest.fromString(line));
                 System.out.println(future.get());
             }
 

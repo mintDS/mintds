@@ -1,6 +1,7 @@
 package com.arturmkrtchyan.mintds.integration;
 
 import com.arturmkrtchyan.mintds.client.MintDsClient;
+import com.arturmkrtchyan.mintds.protocol.request.DefaultRequest;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 import org.javatuples.Pair;
 import org.junit.AfterClass;
@@ -51,7 +52,7 @@ public class MultithreadedAccessIT extends AbstractKeyValueStoreIT {
     public void happyUseCase() throws Exception {
         List<Pair<String, Response>> data = happyUseCaseData();
         data.stream().forEach(pair -> {
-            CompletableFuture<Response> future = multithreadedClient.send(pair.getValue0());
+            CompletableFuture<Response> future = multithreadedClient.send(DefaultRequest.fromString(pair.getValue0()));
             try {
                 Assert.assertEquals("Sending request->" + pair.getValue0(),
                         pair.getValue1(), future.get());
