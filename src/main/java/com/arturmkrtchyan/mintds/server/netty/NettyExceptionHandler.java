@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Sharable
-public class NettyExceptionHandler extends ChannelHandlerAdapter {
+class NettyExceptionHandler extends ChannelHandlerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(NettyExceptionHandler.class);
 

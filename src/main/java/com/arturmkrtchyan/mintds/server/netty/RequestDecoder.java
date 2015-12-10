@@ -9,7 +9,7 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 import java.util.List;
 
 @Sharable
-public class RequestDecoder extends MessageToMessageDecoder<String> {
+class RequestDecoder extends MessageToMessageDecoder<String> {
 
     @Override
     protected void decode(final ChannelHandlerContext channelHandlerContext, final String msg, final List<Object> out) {

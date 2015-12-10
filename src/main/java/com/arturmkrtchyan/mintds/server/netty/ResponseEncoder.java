@@ -8,7 +8,7 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 import java.util.List;
 
 @Sharable
-public class ResponseEncoder extends MessageToMessageEncoder<Response> {
+class ResponseEncoder extends MessageToMessageEncoder<Response> {
 
     @Override
     protected void encode(final ChannelHandlerContext ctx, final Response response, final List<Object> out) {

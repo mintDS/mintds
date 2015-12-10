@@ -12,7 +12,7 @@ import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
 
-public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
+class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
     // Use internal executor if this doesn't scale as netty pins connections to threads.
     private final EventExecutorGroup group = new DefaultEventExecutorGroup(16);

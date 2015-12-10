@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Sharable
-public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
+class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
 
     private final static Logger logger = LoggerFactory.getLogger(NettyServerHandler.class);
 
