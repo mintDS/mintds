@@ -10,7 +10,7 @@ public class MintDsDaemon {
     private final static Logger logger = LoggerFactory.getLogger(MintDsDaemon.class);
 
     public static void main(final String[] args) {
-        final MintDsServer server = new NettyServer();
+        final MintDsServer server = new MintDsServer();
         logger.info("Starting MintDS Server.");
         server.start();
 

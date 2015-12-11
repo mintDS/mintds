@@ -1,11 +1,24 @@
 package com.arturmkrtchyan.mintds.server;
 
-public interface MintDsServer {
+import com.arturmkrtchyan.mintds.server.netty.NettyServer;
 
-    int PORT = Integer.parseInt(System.getProperty("port", "7657"));
+public class MintDsServer {
 
-    void start();
+    public static final int PORT = Integer.parseInt(System.getProperty("port", "7657"));
 
-    void stop();
+    private final NettyServer server;
+
+    public MintDsServer() {
+        server = new NettyServer();
+    }
+
+
+    public void start() {
+        server.start(PORT);
+    }
+
+    public void stop() {
+        server.stop();
+    }
 
 }

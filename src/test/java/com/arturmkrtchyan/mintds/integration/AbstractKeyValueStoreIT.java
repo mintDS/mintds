@@ -39,7 +39,7 @@ public class AbstractKeyValueStoreIT {
     protected static void startServer() throws Exception {
         System.setProperty("port", String.valueOf(DEFAULT_PORT));
         executor = Executors.newFixedThreadPool(1);
-        server = new NettyServer();
+        server = new MintDsServer();
         CompletableFuture.runAsync(server::start, executor);
         Thread.sleep(3000);
     }

@@ -12,12 +12,12 @@ import io.netty.util.concurrent.EventExecutorGroup;
 
 import java.util.Optional;
 
-public class NettyServer implements MintDsServer {
+public class NettyServer {
 
     private Optional<EventLoopGroup> bossGroup;
     private Optional<EventLoopGroup> workerGroup;
 
-    public void start() {
+    public void start(final int port) {
         bossGroup = Optional.of(new NioEventLoopGroup(1));
         workerGroup = Optional.of(new NioEventLoopGroup());
         try {
@@ -27,7 +27,7 @@ public class NettyServer implements MintDsServer {
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new NettyServerInitializer(new KeyValueStoreRouter()));
 
-            b.bind(PORT).sync().channel().closeFuture().sync();
+            b.bind(port).sync().channel().closeFuture().sync();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
