@@ -24,7 +24,9 @@ public class CountMinSktechIT extends AbstractKeyValueStoreIT {
                 new Pair<>("count countminsketch mysketch myvalue", Response.fromString("3")),
                 new Pair<>("count countminsketch mysketch mynewvalue", Response.fromString("0")),
                 new Pair<>("drop countminsketch mysketch", Response.fromString("success")),
-                new Pair<>("drop countminsketch mysketch", Response.fromString("non_existent"))
+                new Pair<>("drop countminsketch mysketch", Response.fromString("non_existent")),
+                new Pair<>("count countminsketch nosketch myvalue",
+                        Response.fromString("failure nosketch doesn't exist."))
         );
     }
 

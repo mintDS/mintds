@@ -20,9 +20,9 @@ public class HyperLogLogIT extends AbstractKeyValueStoreIT {
                 new Pair<>("exists hyperloglog newlog", Response.fromString("no")),
                 new Pair<>("add hyperloglog mylog myvalue", Response.fromString("success")),
                 new Pair<>("count hyperloglog mylog", Response.fromString("1")),
-                new Pair<>("count hyperloglog newlog", Response.fromString("failure filter doesn't exist.")),
                 new Pair<>("drop hyperloglog mylog", Response.fromString("success")),
-                new Pair<>("drop hyperloglog newlog", Response.fromString("non_existent"))
+                new Pair<>("drop hyperloglog newlog", Response.fromString("non_existent")),
+                new Pair<>("count hyperloglog nolog", Response.fromString("failure nolog doesn't exist."))
         );
     }
 

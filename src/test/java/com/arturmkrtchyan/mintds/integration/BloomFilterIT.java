@@ -21,7 +21,9 @@ public class BloomFilterIT extends AbstractKeyValueStoreIT {
                 new Pair<>("contains bloomfilter myfilter myvalue", Response.fromString("yes")),
                 new Pair<>("contains bloomfilter myfilter mynewvalue", Response.fromString("no")),
                 new Pair<>("drop bloomfilter myfilter", Response.fromString("success")),
-                new Pair<>("drop bloomfilter mynewfilter", Response.fromString("non_existent"))
+                new Pair<>("drop bloomfilter mynewfilter", Response.fromString("non_existent")),
+                new Pair<>("contains bloomfilter nofilter myvalue",
+                        Response.fromString("failure nofilter doesn't exist."))
         );
     }
 
