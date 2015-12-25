@@ -101,6 +101,12 @@ SUCCESS
 mintDS>
 ```
 
+Client Implementations
+--------------
+| Client      |      Description      |
+|:------------|:--------------------------------------------:|
+| [mintds-java](https://github.com/mintDS/mintds-java) | Asynchronous Java client library for mintDS. |
+
 References
 --------------
 The list of related open-source projects and scientific papers which mintDS makes use of:
