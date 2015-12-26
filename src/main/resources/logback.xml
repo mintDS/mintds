@@ -28,7 +28,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.arturmkrtchyan.mintds" level="TRACE" additivity="false">
+    <logger name="com.arturmkrtchyan.mintds" level="WARN" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </logger>

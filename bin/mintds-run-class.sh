@@ -20,12 +20,12 @@ fi
 
 # Memory options
 if [ -z "$MINTDS_HEAP_OPTS" ]; then
-  MINTDS_HEAP_OPTS="-Xmx256M"
+  MINTDS_HEAP_OPTS="-Xms512m -Xmx2048m"
 fi
 
 # JVM performance options
 if [ -z "$MINTDS_JVM_PERFORMANCE_OPTS" ]; then
-  MINTDS_JVM_PERFORMANCE_OPTS="-server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+DisableExplicitGC -Djava.awt.headless=true"
+  MINTDS_JVM_PERFORMANCE_OPTS="-server -verbose:gc -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+DisableExplicitGC -Djava.awt.headless=true"
 fi
 
 #echo "$@"
