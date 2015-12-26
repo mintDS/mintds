@@ -109,6 +109,10 @@ Client Implementations
 
 Check out protocol description [here](https://github.com/mintDS/mintds-protocol). 
 
+Credits
+--------------
+Datastructures are based on [addthis/stream-lib](https://github.com/addthis/stream-lib).
+
 References
 --------------
 The list of related open-source projects and scientific papers which mintDS makes use of:
