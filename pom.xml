@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.arturmkrtchyan.mintds</groupId>
-    <artifactId>mintDS</artifactId>
+    <artifactId>mintds</artifactId>
     <packaging>jar</packaging>
     <version>0.1.0-SNAPSHOT</version>
 
-    <name>mintDS</name>
+    <name>mintds</name>
     <description>
         Probabilistic data structures server.
         The data model is key-value, where values are: Bloomfilters, LinearCounters, HyperLogLogs, CountMinSketches and
