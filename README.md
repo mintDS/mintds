@@ -107,7 +107,7 @@ Client Implementations
 |:------------|:--------------------------------------------:|
 | [mintds-java](https://github.com/mintDS/mintds-java) | Asynchronous Java client library for mintDS. |
 
-Check out protocol description [here](https://github.com/mintDS/mintds-protocol). 
+Check out the protocol description [here](https://github.com/mintDS/mintds-protocol). 
 
 Credits
 --------------
