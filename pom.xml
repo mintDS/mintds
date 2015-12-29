@@ -29,11 +29,21 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git@github.com:mintDS/mintds.git</connection>
+        <developerConnection>scm:git:git@github.com:mintDS/mintds.git</developerConnection>
+        <url>git@github.com:mintDS/mintds.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jdk.version>1.8</jdk.version>
+        <skipSigning>true</skipSigning>
+        <skipSource>true</skipSource>
+        <skipJavadoc>true</skipJavadoc>
+        <skipAssembly>false</skipAssembly>
     </properties>
 
     <dependencies>
@@ -60,13 +70,13 @@
         <dependency>
             <groupId>com.arturmkrtchyan.mintds</groupId>
             <artifactId>mintds-protocol</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.1.4</version>
         </dependency>
 
         <dependency>
             <groupId>com.arturmkrtchyan.mintds</groupId>
             <artifactId>mintds-java</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.1.1</version>
         </dependency>
 
         <dependency>
@@ -158,6 +168,8 @@
                         <descriptor>src/main/assembly/dist.xml</descriptor>
                     </descriptors>
 
+                    <skipAssembly>${skipAssembly}</skipAssembly>
+
                 </configuration>
                 <executions>
                     <execution>
@@ -169,6 +181,73 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Bundle sources during verify phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <skipSource>${skipSource}</skipSource>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Generating Javadoc during verify phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <skip>${skipJavadoc}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- GPG Signing during verify phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <skip>${skipSigning}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Releasing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                </configuration>
             </plugin>
 
         </plugins>
@@ -191,6 +270,11 @@
     </reporting>
 
     <distributionManagement>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Staging Releases</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
             <name>Snapshots Deployments</name>
@@ -198,18 +282,25 @@
         </snapshotRepository>
     </distributionManagement>
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Snapshots Deployments</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+    <profiles>
+
+        <profile>
+            <id>develop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <skipSigning>false</skipSigning>
+                <skipSource>false</skipSource>
+                <skipJavadoc>false</skipJavadoc>
+            </properties>
+        </profile>
+
+    </profiles>
+
 
 </project>
