@@ -8,7 +8,7 @@ fi
 
 base_dir=$(dirname $0)/..
 
-MINTDS_JAR=$base_dir/target/mintDS-0.1.0-SNAPSHOT-all.jar
+MINTDS_JAR=$base_dir/target/mintDS-0.1.1-SNAPSHOT-all.jar
 CLASSPATH=$MINTDS_JAR
 
 # Which java to use
@@ -25,7 +25,7 @@ fi
 
 # JVM performance options
 if [ -z "$MINTDS_JVM_PERFORMANCE_OPTS" ]; then
-  MINTDS_JVM_PERFORMANCE_OPTS="-server -verbose:gc -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+DisableExplicitGC -Djava.awt.headless=true"
+  MINTDS_JVM_PERFORMANCE_OPTS="-server -verbose:gc -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -Djava.awt.headless=true"
 fi
 
 #echo "$@"
