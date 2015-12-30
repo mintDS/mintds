@@ -4,8 +4,6 @@ import com.arturmkrtchyan.mintds.server.netty.NettyServer;
 
 public class MintDsServer {
 
-    public static final int PORT = Integer.parseInt(System.getProperty("port", "7657"));
-
     private final NettyServer server;
 
     public MintDsServer() {
@@ -13,8 +11,8 @@ public class MintDsServer {
     }
 
 
-    public void start() {
-        server.start(PORT);
+    public void start(final String bindAddress, final int port) {
+        server.start(bindAddress, port);
     }
 
     public void stop() {

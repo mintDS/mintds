@@ -40,7 +40,7 @@ public class AbstractKeyValueStoreIT {
         System.setProperty("port", String.valueOf(DEFAULT_PORT));
         executor = Executors.newFixedThreadPool(1);
         server = new MintDsServer();
-        CompletableFuture.runAsync(server::start, executor);
+        CompletableFuture.runAsync(() -> server.start(DEFAULT_HOST, DEFAULT_PORT), executor);
         Thread.sleep(3000);
     }
 

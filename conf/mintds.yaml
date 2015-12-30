@@ -7,4 +7,4 @@ server:
   bind-address: 0.0.0.0
 
 bloomfilter:
-    probability: 0.001
+  probability: 0.001

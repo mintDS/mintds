@@ -17,7 +17,7 @@ public class NettyServer {
     private Optional<EventLoopGroup> bossGroup;
     private Optional<EventLoopGroup> workerGroup;
 
-    public void start(final int port) {
+    public void start(final String bindAddress, final int port) {
         bossGroup = Optional.of(new NioEventLoopGroup(1));
         workerGroup = Optional.of(new NioEventLoopGroup());
         try {
@@ -27,7 +27,7 @@ public class NettyServer {
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new NettyServerInitializer(new KeyValueStoreRouter()));
 
-            b.bind(port).sync().channel().closeFuture().sync();
+            b.bind(bindAddress, port).sync().channel().closeFuture().sync();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
