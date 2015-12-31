@@ -11,8 +11,6 @@ public class MintDsDaemon {
     private final static Logger logger = LoggerFactory.getLogger(MintDsDaemon.class);
 
     public static void main(final String[] args) throws IOException {
-        System.out.println(args[0]);
-
         Configuration config = Configuration.valueOf(args[0]);
 
         System.out.println(config);
