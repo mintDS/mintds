@@ -17,7 +17,7 @@ Playing with mintDS
 --------------
 To run mintDS server simply type:
 ```shell
- ./bin/mintds-start.sh conf/mintds.yml
+ ./bin/mintds-start.sh conf/mintds.yaml
 ```
 
 After starting the server you can use mintds-cli to play with mintDS. 
