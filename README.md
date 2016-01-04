@@ -13,6 +13,16 @@ What are the mintDS data structures?
 
 ➤ **Count–min sketch** is a space-efficient probabilistic data structure which is used to get the approximate frequencies of specific elements in a multiset. The accuracy can be easily configured.
 
+Performance
+--------------
+mintDS is super fast. Here are some numbers based on aws **c4.xlarge** instance:
+- **16ms** to asynchronously send **100K** messages.
+- **1s** to synchronously send and receive **70K** messages.
+
+**Want to try it out ?**
+
+Check out mintd-java and run -> `java -Dconnections=100 -Dthreads=4 -Dhost=<minds-server-ip> -cp target/mintds-java-0.1.2-SNAPSHOT-all.jar com.arturmkrtchyan.mintds.benchmark.BloomFilterBenchmark`
+
 Playing with mintDS
 --------------
 To run mintDS server simply type:
