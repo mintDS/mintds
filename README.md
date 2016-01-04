@@ -17,7 +17,7 @@ Performance
 --------------
 mintDS is super fast. Here are some numbers based on aws **c4.xlarge** instance:
 - **16ms** to asynchronously send **100K** messages.
-- **1s** to synchronously send and receive **70K** messages.
+- **1s** to asynchronously send and receive **70K** messages.
 
 **Want to try it out ?**
 
