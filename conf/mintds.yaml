@@ -7,4 +7,9 @@ server:
   bind-address: 0.0.0.0
 
 bloomfilter:
-  probability: 0.001
+  elements: 16777216 # 2^24
+  probability: 0.1
+
+countminsketch:
+  width: 16777216 # 2^24
+  depth: 4

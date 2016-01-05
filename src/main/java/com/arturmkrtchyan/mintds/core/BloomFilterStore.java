@@ -1,17 +1,17 @@
 package com.arturmkrtchyan.mintds.core;
 
+import com.arturmkrtchyan.mintds.config.BloomFilterConfig;
 import com.arturmkrtchyan.mintds.protocol.request.Request;
 import com.arturmkrtchyan.mintds.protocol.response.EnumResponse;
-import com.arturmkrtchyan.mintds.protocol.response.FailureResponse;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
 import com.clearspring.analytics.stream.membership.BloomFilter;
 
 class BloomFilterStore extends AbstractKeyValueStore<BloomFilter> {
 
-    public static final int DEFAULT_NUMBER_OF_ELEMENTS = 67_108_864; // 2^26
-    public static final double DEFAULT_FALSE_POSITIVE_PROBABILITY = 0.1;
+    private final BloomFilterConfig config;
 
-    public BloomFilterStore() {
+    public BloomFilterStore(final BloomFilterConfig config) {
+        this.config = config;
     }
 
     @Override
@@ -26,7 +26,7 @@ class BloomFilterStore extends AbstractKeyValueStore<BloomFilter> {
 
     @Override
     protected BloomFilter newElement() {
-        return new BloomFilter(DEFAULT_NUMBER_OF_ELEMENTS, DEFAULT_FALSE_POSITIVE_PROBABILITY);
+        return new BloomFilter(config.getElements(), config.getProbability());
     }
 
 }

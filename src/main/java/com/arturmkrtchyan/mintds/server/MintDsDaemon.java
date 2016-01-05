@@ -17,8 +17,7 @@ public class MintDsDaemon {
 
         final MintDsServer server = new MintDsServer();
         logger.info("Starting MintDS Server.");
-        server.start(config.getServerConfig().getBindAddress(),
-                config.getServerConfig().getPort());
+        server.start(config);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Stopping MintDS Server.");

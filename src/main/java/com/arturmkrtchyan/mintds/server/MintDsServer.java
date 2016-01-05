@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.server;
 
+import com.arturmkrtchyan.mintds.config.Configuration;
 import com.arturmkrtchyan.mintds.server.netty.NettyServer;
 
 public class MintDsServer {
@@ -10,9 +11,8 @@ public class MintDsServer {
         server = new NettyServer();
     }
 
-
-    public void start(final String bindAddress, final int port) {
-        server.start(bindAddress, port);
+    public void start(final Configuration configuration) {
+        server.start(configuration);
     }
 
     public void stop() {

@@ -1,5 +1,7 @@
 package com.arturmkrtchyan.mintds.server.netty;
 
+import com.arturmkrtchyan.mintds.config.Configuration;
+import com.arturmkrtchyan.mintds.config.ServerConfig;
 import com.arturmkrtchyan.mintds.core.KeyValueStoreRouter;
 import com.arturmkrtchyan.mintds.server.MintDsServer;
 import io.netty.bootstrap.ServerBootstrap;
@@ -17,7 +19,7 @@ public class NettyServer {
     private Optional<EventLoopGroup> bossGroup;
     private Optional<EventLoopGroup> workerGroup;
 
-    public void start(final String bindAddress, final int port) {
+    public void start(final Configuration configuration) {
         bossGroup = Optional.of(new NioEventLoopGroup(1));
         workerGroup = Optional.of(new NioEventLoopGroup());
         try {
@@ -25,9 +27,11 @@ public class NettyServer {
             b.group(bossGroup.get(), workerGroup.get())
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new NettyServerInitializer(new KeyValueStoreRouter()));
+                    .childHandler(new NettyServerInitializer(new KeyValueStoreRouter(configuration)));
 
-            b.bind(bindAddress, port).sync().channel().closeFuture().sync();
+            final ServerConfig serverConfig = configuration.getServerConfig();
+            b.bind(serverConfig.getBindAddress(), serverConfig.getPort())
+                    .sync().channel().closeFuture().sync();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {

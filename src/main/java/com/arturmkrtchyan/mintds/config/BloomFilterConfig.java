@@ -1,21 +1,15 @@
 package com.arturmkrtchyan.mintds.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+@AllArgsConstructor
 public class BloomFilterConfig {
 
-    private float probability;
+    private int elements;
+    private double probability;
 
-    public void setProbability(float probability) {
-        this.probability = probability;
-    }
-
-    public float getProbability() {
-        return probability;
-    }
-
-    @Override
-    public String toString() {
-        return "BloomFilterConfig{" +
-                "probability=" + probability +
-                '}';
-    }
 }

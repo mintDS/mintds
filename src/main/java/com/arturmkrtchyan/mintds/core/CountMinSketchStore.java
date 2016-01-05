@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 class CountMinSketchStore extends AbstractKeyValueStore<CountMinSketch> {
 
-    public static final int DEFAULT_WIDTH = 2 << 24;
+    public static final int DEFAULT_WIDTH = 16_777_216; // 2^24
     public static final int DEFAULT_DEPTH = 4;
 
     public CountMinSketchStore() {

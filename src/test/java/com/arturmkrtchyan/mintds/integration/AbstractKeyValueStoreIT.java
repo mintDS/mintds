@@ -1,8 +1,8 @@
 package com.arturmkrtchyan.mintds.integration;
 
 import com.arturmkrtchyan.mintds.client.MintDsClient;
+import com.arturmkrtchyan.mintds.config.Configuration;
 import com.arturmkrtchyan.mintds.server.MintDsServer;
-import com.arturmkrtchyan.mintds.server.netty.NettyServer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -40,7 +40,8 @@ public class AbstractKeyValueStoreIT {
         System.setProperty("port", String.valueOf(DEFAULT_PORT));
         executor = Executors.newFixedThreadPool(1);
         server = new MintDsServer();
-        CompletableFuture.runAsync(() -> server.start(DEFAULT_HOST, DEFAULT_PORT), executor);
+        CompletableFuture.runAsync(() ->
+                server.start(Configuration.valueOf(DEFAULT_HOST, DEFAULT_PORT)), executor);
         Thread.sleep(3000);
     }
 

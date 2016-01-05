@@ -1,5 +1,6 @@
 package com.arturmkrtchyan.mintds.core;
 
+import com.arturmkrtchyan.mintds.config.Configuration;
 import com.arturmkrtchyan.mintds.protocol.request.DataStructure;
 import com.arturmkrtchyan.mintds.protocol.request.Request;
 import com.arturmkrtchyan.mintds.protocol.response.Response;
@@ -15,9 +16,10 @@ public class KeyValueStoreRouter {
 
     private final Map<DataStructure, KeyValueStore> storeRoutes;
 
-    public KeyValueStoreRouter() {
+    public KeyValueStoreRouter(final Configuration configuration) {
         storeRoutes = new HashMap<>();
-        storeRoutes.put(DataStructure.BloomFilter, new BloomFilterStore());
+        storeRoutes.put(DataStructure.BloomFilter,
+                new BloomFilterStore(configuration.getBloomFilterConfig()));
         storeRoutes.put(DataStructure.HyperLogLog, new HyperLogLogStore());
         storeRoutes.put(DataStructure.CountMinSketch, new CountMinSketchStore());
     }
