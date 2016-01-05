@@ -8,8 +8,8 @@ import com.clearspring.analytics.stream.membership.BloomFilter;
 
 class BloomFilterStore extends AbstractKeyValueStore<BloomFilter> {
 
-    public static final int DEFAULT_NUMBER_OF_ELEMENTS = 2 << 25;
-    public static final double DEFAULT_FALSE_POSITIVE_PROBABILITY = 1.0;
+    public static final int DEFAULT_NUMBER_OF_ELEMENTS = 67_108_864; // 2^26
+    public static final double DEFAULT_FALSE_POSITIVE_PROBABILITY = 0.1;
 
     public BloomFilterStore() {
     }
