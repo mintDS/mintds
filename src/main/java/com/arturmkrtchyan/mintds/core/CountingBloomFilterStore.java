@@ -16,6 +16,12 @@ class CountingBloomFilterStore extends AbstractKeyValueStore<CountingBloomFilter
     }
 
     @Override
+    public Response remove(final CountingBloomFilter filter, final Request request) {
+        filter.delete(request.getValue().get());
+        return EnumResponse.SUCCESS;
+    }
+
+    @Override
     public Response contains(final CountingBloomFilter filter, final Request request) {
         return filter.isPresent(request.getValue().get()) ? EnumResponse.YES : EnumResponse.NO;
     }

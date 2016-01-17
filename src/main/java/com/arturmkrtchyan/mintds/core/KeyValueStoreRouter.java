@@ -22,6 +22,7 @@ public class KeyValueStoreRouter {
                 new BloomFilterStore(configuration.getBloomFilterConfig()));
         storeRoutes.put(DataStructure.HyperLogLog, new HyperLogLogStore());
         storeRoutes.put(DataStructure.CountMinSketch, new CountMinSketchStore());
+        storeRoutes.put(DataStructure.CountingBloomFilter, new CountingBloomFilterStore());
     }
 
     public Response route(final Request request) {
