@@ -60,8 +60,6 @@ SUCCESS
 mintDS>
 ```
 
-```
-
 ####Counting Bloom Filter
 
 ```shell
