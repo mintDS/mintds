@@ -60,6 +60,48 @@ SUCCESS
 mintDS>
 ```
 
+```
+
+####Counting Bloom Filter
+
+```shell
+
+mintDS> create countingbloomfilter myfilter
+SUCCESS
+
+mintDS> exists countingbloomfilter myfilter
+YES
+
+mintDS> add countingbloomfilter myfilter myvalue
+SUCCESS
+
+mintDS> contains countingbloomfilter myfilter myvalue
+YES
+
+mintDS> contains countingbloomfilter myfilter mynewvalue
+NO
+
+mintDS> count countingbloomfilter myfilter myvalue
+1
+
+mintDS> add countingbloomfilter myfilter myvalue
+SUCCESS
+
+mintDS> count countingbloomfilter myfilter myvalue
+2
+
+mintDS> remove countingbloomfilter myfilter myvalue
+SUCCESS
+
+mintDS> count countingbloomfilter myfilter myvalue
+1
+
+mintDS> drop countingbloomfilter myfilter
+SUCCESS
+
+mintDS>
+```
+
 ####HyperLogLog
 
 ```shell
