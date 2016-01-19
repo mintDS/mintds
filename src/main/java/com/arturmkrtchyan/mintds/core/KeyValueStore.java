@@ -14,6 +14,8 @@ interface KeyValueStore {
                 return exists(request);
             case ADD:
                 return add(request);
+            case REMOVE:
+                return remove(request);
             case CONTAINS:
                 return contains(request);
             case COUNT:
@@ -30,6 +32,8 @@ interface KeyValueStore {
     Response exists(Request request);
 
     Response add(Request request);
+
+    Response remove(Request request);
 
     Response contains(Request request);
 

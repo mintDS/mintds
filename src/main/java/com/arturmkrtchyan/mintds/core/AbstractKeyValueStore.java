@@ -32,6 +32,15 @@ abstract class AbstractKeyValueStore<E> implements KeyValueStore {
     }
 
     @Override
+    public Response remove(final Request request) {
+        final E element = map.get(request.getKey());
+        if (element != null) {
+            return remove(element, request);
+        }
+        return new FailureResponse("Failure " + request.getKey() + " doesn't exist.");
+    }
+
+    @Override
     public Response exists(final Request request) {
         return map.containsKey(request.getKey()) ? EnumResponse.YES : EnumResponse.NO;
     }
@@ -65,6 +74,10 @@ abstract class AbstractKeyValueStore<E> implements KeyValueStore {
 
 
     protected Response count(final E element, final Request request) {
+        return new FailureResponse("Failure unsupported command");
+    }
+
+    protected Response remove(final E element, final Request request) {
         return new FailureResponse("Failure unsupported command");
     }
 
