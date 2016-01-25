@@ -9,6 +9,8 @@ What are the mintDS data structures?
 --------------
 ➤ **Bloom Filter** is a space-efficient probabilistic data structure which is used to test whether an element is a member of a set. Membership query returns either "possibly in set" or "definitely not in set". The probability of false positives can be easily configured.
 
+➤ **Counting Bloom Filter** Bloom Filter which supports deletions and counting.
+
 ➤ **HyperLogLog** is a space-efficient probabilistic data structure which is used to get the approximate number of distinct elements in a multiset. The accuracy can be easily configured.
 
 ➤ **Count–min sketch** is a space-efficient probabilistic data structure which is used to get the approximate frequencies of specific elements in a multiset. The accuracy can be easily configured.
